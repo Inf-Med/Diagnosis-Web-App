@@ -9,6 +9,7 @@ from rest_framework.authtoken.models import Token
 class UserCreateSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(label="Email Address")
     email2 = serializers.EmailField(label="Confirm Email")
+
     class Meta:
         model = User
         fields = [
@@ -38,7 +39,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
         password = validated_data['password']
         user_obj = User(
             username=username,
-            email=email
+            email=email,
         )
         user_obj.set_password(password)
         user_obj.save()
@@ -84,7 +85,7 @@ class UserLoginSerializer(ModelSerializer):
             if not user_obj.check_password(password):
                 raise serializers.ValidationError("Incorrect credentials, please try again.")
 
-        data["token"] = "SOME RANDOM TOKEN"
+        data["token"] = Token.objects.create(user=user_obj)
 
         return data
 
