@@ -41,16 +41,25 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Symptoms',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100, null=True)),
+                ('symptom_cui', models.CharField(primary_key=True,max_length=20, null=False)),
+                ('term', models.CharField(max_length=200, null=True)),
+                ('number_of_diseases', models.IntegerField(null=True))
             ],
         ),
         migrations.CreateModel(
             name='Diseases',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100, null=True)),
-                ('symptoms', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='users.Symptoms')),
+                ('disease_cui', models.CharField(primary_key=True, max_length=20, null=False)),
+                ('term', models.CharField(max_length=200, null=True)),
+                ('number_of_symptoms', models.IntegerField(null=True))
+            ],
+        ),
+        migrations.CreateModel(
+            name='DiseasesToSymptoms',
+            fields=[
+                ('id', models.AutoField(primary_key=True, serialize=False)),
+                ('symptom_cui', models.CharField(max_length=20, null=False)),
+                ('disease_cui', models.CharField(max_length=20, null=False)),
             ],
         ),
     ]
