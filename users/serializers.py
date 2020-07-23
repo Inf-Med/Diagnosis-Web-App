@@ -4,7 +4,6 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.serializers import ModelSerializer
 from django.db.models import Q
 from rest_framework.authtoken.models import Token
-from .models import *
 
 
 class UserCreateSerializer(serializers.ModelSerializer):
