@@ -4,6 +4,18 @@ from .models import *
 
 
 class QuestSerializer(serializers.ModelSerializer):
+    Sex_choices = [
+        ("F", "Female"),
+        ("M", "Male")
+    ]
+    first_name = serializers.CharField(max_length=100, default="First_name")
+    last_name = serializers.CharField(max_length=100, default="Last_name")
+    age = serializers.IntegerField(default="0")
+    date_of_birth = serializers.DateField(default="2000-12-12")
+    pesel = serializers.IntegerField(required=False, default="00000000000")
+    sex = serializers.ChoiceField(choices=Sex_choices)
+
+
     class Meta:
         model = Quest
         fields = [
@@ -44,6 +56,26 @@ class QuestSerializer(serializers.ModelSerializer):
 
 
 class QuestSerializer2(serializers.ModelSerializer):
+
+    Diseases_choices = (
+        ("1", "Diabetes"),
+        ("2", "Huntington's chorea"),
+        ("3", "Cystic fibrosis")
+    )
+
+    Symptoms_choices = (
+        ("Cough", "Cough"),
+        ("Fever", "Fever"),
+        ("Headache", "Headache")
+    )
+    family_diseases = serializers.ChoiceField(choices=Diseases_choices)
+    symptoms = serializers.ChoiceField(choices=Symptoms_choices)
+    pregnancy = serializers.BooleanField()
+    cigarettes = serializers.BooleanField()
+    alcohol = serializers.BooleanField()
+    drugs = serializers.CharField(required=False, default=None)
+    injury = serializers.CharField(required=False, default=None)
+
     class Meta:
         model = Quest2
         fields = [
@@ -83,6 +115,3 @@ class QuestSerializer2(serializers.ModelSerializer):
 
         instance.save()
         return instance
-
-
-
