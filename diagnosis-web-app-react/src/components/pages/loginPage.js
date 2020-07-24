@@ -17,7 +17,7 @@ class LoginPage extends React.Component {
         .then( data => data.json())
         .then(
           data => {
-            console.log(data.token);
+            this.props.setLoginSessionToken(data.token);
           }
         )
         .catch( error => console.error(error))

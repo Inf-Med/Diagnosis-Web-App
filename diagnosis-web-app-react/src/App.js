@@ -8,8 +8,13 @@ import Navbar from './components/pages/navBar';
 
 class App extends React.Component {
 
-  state = {}
+  state = {
+    token: ""
+  }
 
+  setLoginSessionToken = (token) => {
+    this.setState({token})
+  }
   // do stworzenia w browser router:
   //<Route exact path="/" component={ Home } />   Home do stworzenia
   //<Route exact path="/" component={ Interview } /> Interview do stworzenia
@@ -18,8 +23,8 @@ class App extends React.Component {
     return (
       <div className="App">
         <BrowserRouter>
-            <Navbar />
-            <Route path="/login" component={ LoginPage } />
+            <Navbar token={ this.state.token }/>
+            <Route path="/login" render={ () => <LoginPage setLoginSessionToken={ this.setLoginSessionToken } /> } />
             <Route path="/register" component={ RegisterPage } />
 
         </BrowserRouter>

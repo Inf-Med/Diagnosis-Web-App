@@ -6,6 +6,9 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 from .serializers import UserCreateSerializer, UserLoginSerializer
 
+from rest_framework.decorators import api_view
+from rest_framework.authtoken.models import Token
+
 
 class UserCreateAPIView(CreateAPIView):
     serializer_class = UserCreateSerializer
@@ -26,4 +29,7 @@ class UserLoginAPIView(APIView):
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
 
-
+@api_view(['GET'])
+def logout(request, token):
+    Token.objects.filter(key=token).delete()
+    return Response(status=HTTP_200_OK)
