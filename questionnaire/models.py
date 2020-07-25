@@ -2,14 +2,14 @@ from django.db import models
 
 
 class Quest(models.Model):
-    first_name = models.CharField(max_length=25, default="First name")
-    last_name = models.CharField(max_length=30, default="Last name")
+    first_name = models.TextField(max_length=25, default="First name")
+    last_name = models.TextField(max_length=30, default="Last name")
     date_of_birth = models.DateField(default="2000-12-12")
     age = models.IntegerField(default='0')
     pesel = models.IntegerField(blank=True, null=True, default="00000000000")
 
     CHOICES = (('male', 'Male'), ('female', 'Female'))
-    sex = models.CharField(max_length=11, choices=CHOICES, default='male')
+    sex = models.TextField(default="Female")
 
 
 class Quest2(models.Model):
@@ -27,10 +27,12 @@ class Quest2(models.Model):
     pregnancy = models.BooleanField(default=False)
     cigarettes = models.BooleanField(default=False)
     alcohol = models.BooleanField(default=False)
-    drugs = models.CharField(max_length=100, blank=True, null=True)
-    injury = models.CharField(max_length=200, blank=True, null=True)
-    symptoms = models.CharField(max_length=100, choices=symptoms_choices)
-    family_diseases = models.CharField(max_length=100, choices=diseases_choices)
+    drugs = models.CharField(max_length=30, default="No drugs")
+    injury = models.CharField(max_length=200, default="No injuries")
+    symptoms = models.CharField(max_length=100, default="No symptoms")
+    family_diseases = models.CharField(max_length=100, default="No family diseases")
+    # symptoms = models.CharField(max_length=100, choices=symptoms_choices)
+    # family_diseases = models.CharField(max_length=100, choices=diseases_choices)
 
 
 class Symptoms(models.Model):

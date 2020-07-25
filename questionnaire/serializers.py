@@ -11,9 +11,9 @@ class QuestSerializer(serializers.ModelSerializer):
     first_name = serializers.CharField(max_length=100, default="First_name")
     last_name = serializers.CharField(max_length=100, default="Last_name")
     age = serializers.IntegerField(default="0")
-    date_of_birth = serializers.DateField(default="2000-12-12")
-    pesel = serializers.IntegerField(required=False, default="00000000000")
-    sex = serializers.ChoiceField(choices=Sex_choices)
+    date_of_birth = serializers.CharField(default="2000-12-12")
+    pesel = serializers.CharField(required=False, default="00000000000")
+    sex = serializers.CharField(max_length=100, default="Female")
 
 
     class Meta:
@@ -68,8 +68,8 @@ class QuestSerializer2(serializers.ModelSerializer):
         ("Fever", "Fever"),
         ("Headache", "Headache")
     )
-    family_diseases = serializers.ChoiceField(choices=Diseases_choices)
-    symptoms = serializers.ChoiceField(choices=Symptoms_choices)
+    family_diseases = serializers.CharField(required=False, default=None)
+    symptoms = serializers.CharField(required=False, default=None)
     pregnancy = serializers.BooleanField()
     cigarettes = serializers.BooleanField()
     alcohol = serializers.BooleanField()

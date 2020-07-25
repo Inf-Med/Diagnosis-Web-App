@@ -17,7 +17,7 @@ class Navbar extends React.Component {
                     <a id="logo" href="/" className="brand-logo">Diagnosis app</a>
                     <ul className="right">
                         <li><NavLink to="/">Home</NavLink></li>
-                        <li><NavLink to="/interview">Interview</NavLink></li>
+                        <li><NavLink to="/quest">Interview</NavLink></li>
                         <li><NavLink to="/login">Login</NavLink></li>
                         <li><NavLink to="/register">Register</NavLink></li>
                         <li id="logoutString" onClick={ this.logout }>Logout</li>
