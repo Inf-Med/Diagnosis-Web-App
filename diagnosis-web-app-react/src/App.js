@@ -14,9 +14,26 @@ class App extends React.Component {
     token: ""
   }
 
+  componentDidMount = () => {
+    console.log(localStorage.token);
+    console.log(sessionStorage.token);
+    window.addEventListener('beforeunload', (event) => {
+      event.preventDefault();
+      this.sendSessionEndingRequest();
+      event.returnValue = '';
+    })
+  }
+
   setLoginSessionToken = (token) => {
     this.setState({token})
   }
+
+  sendSessionEndingRequest = () => {
+    fetch('http://127.0.0.1:8000/users/logout/' + localStorage.token)
+      .then(localStorage.clear())
+      .then(sessionStorage.clear())
+  }
+
   // do stworzenia w browser router:
   //<Route exact path="/" component={ Home } />   Home do stworzenia
 

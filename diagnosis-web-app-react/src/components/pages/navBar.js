@@ -7,7 +7,8 @@ class Navbar extends React.Component {
 
     logout = () => {
         fetch('http://127.0.0.1:8000/users/logout/' + this.props.token)
-            .then(console.log("Fetching..."))
+            .then(localStorage.clear())
+            .then(sessionStorage.clear())
     }
 
     render() {

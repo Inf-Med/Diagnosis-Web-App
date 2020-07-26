@@ -18,6 +18,8 @@ class LoginPage extends React.Component {
         .then(
           data => {
             this.props.setLoginSessionToken(data.token);
+            localStorage.setItem('token', data.token);
+            sessionStorage.setItem('token', data.token);
           }
         )
         .catch( error => console.error(error))
