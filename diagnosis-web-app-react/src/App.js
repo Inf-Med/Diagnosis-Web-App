@@ -6,7 +6,7 @@ import RegisterPage from './components/pages/registerPage';
 import QuestPage from './components/pages/questPage';
 import InterviewPage from './components/pages/interviewPage';
 import HomePage from './components/pages/homePage';
-import DiagnosisPage from './components/pages/diagnosisPage';
+//import DiagnosisPage from './components/pages/diagnosisPage';
 import Navbar from './components/pages/navBar';
 
 

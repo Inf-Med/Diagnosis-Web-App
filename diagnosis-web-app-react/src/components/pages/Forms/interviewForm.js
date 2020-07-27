@@ -4,63 +4,142 @@ import ReactDOM from 'react-dom';
 
 class InterviewForm extends React.Component {
 
-
-    state = {
-    "pregnancy": false,
-    "cigarettes": false,
-    "alcohol": false,
-    "drugs": "",
-    "injury": "",
-    "symptoms": "",
-    "family_diseases": ""
-    }
-
-    handleChanged = (event) => {
-        this.setState({ [event.target.name] : event.target.value });
-    }
-
-    handleSubmit = (e) => {
-        e.preventDefault();
-        this.props.sendInterviewRequest(this.state);
-        this.setState({
-            "pregnancy": false,
-            "cigarettes": false,
-            "alcohol": false,
+        constructor() {
+          super();
+          this.state = {
+            "pregnancy": "false",
+            "cigarettes": "false",
+            "alcohol": "false",
             "drugs": "",
             "injury": "",
-            "sympotms": "",
+            "symptoms": "",
             "family_diseases": ""
-        })
-    }
+          };
 
-    render() {
-        return (
-            <form id="interview">
-                <label>
-                    Are you pregnant?
-                    <input type="boolean" name="pregnancy"
-                        value={ this.state.pregnancy }
-                        onChange={ this.handleChanged }
-                        />
-                </label>
+          this.handleChanged = this.handleChanged.bind(this);
+          this.onRadioChange = this.onRadioChange.bind(this);
+          this.handleSubmit = this.handleSubmit.bind(this);
+
+        }
+          handleChanged = (event) => {
+              this.setState({ [event.target.name] : event.target.value });
+          }
+
+
+          onRadioChange = (e) => {
+            this.setState({
+                [e.target.name]: e.target.value
+            });
+          }
+          handleSubmit = (e) => {
+              e.preventDefault();
+              this.props.sendInterviewRequest(this.state);
+              this.setState({
+                "pregnancy": "false",
+            "cigarettes": "false",
+            "alcohol": "false",
+            "drugs": "",
+            "injury": "",
+            "symptoms": "",
+            "family_diseases": ""
+            })
+          }
+
+          render() {
+              return (
+                  <form id="interview">
+                       <strong>Are you pregnant:</strong>
+
+<ul>
+  <li>
+    <label>
+      <input
+        name="pregnancy"
+        type="radio"
+        value="false"
+        checked={this.state.pregnancy === "false"}
+        onChange={this.onRadioChange}
+      />
+      <span>No</span>
+    </label>
+  </li>
+
+  <li>
+    <label>
+      <input
+        name="pregnancy"
+        type="radio"
+        value="true"
+        checked={this.state.pregnancy === "true"}
+        onChange={this.onRadioChange}
+      />
+      <span>Yes</span>
+    </label>
+  </li>
+</ul>
+      <br/>
                 <br/>
 
-                <label>
-                    Do you smoke?
-                    <input type="boolean" name="cigarettes"
-                        value={ this.state.cigarettes }
-                        onChange={ this.handleChanged }
-                        />
-                </label>
-                <br/>
+                <strong>Do you smoke?</strong>
 
-                <label>
-                    Do you drink alcohol quite often?
-                    <input type="boolean" name="alcohol"
-                        value={ this.state.alcohol }
-                        onChange={ this.handleChanged }
-                        />
-                </label>
+<ul>
+  <li>
+    <label>
+      <input
+        name="cigarettes"
+        type="radio"
+        value="false"
+        checked={this.state.cigarettes === "false"}
+        onChange={this.onRadioChange}
+      />
+      <span>No</span>
+    </label>
+  </li>
+
+  <li>
+    <label>
+      <input
+        name="cigarettes"
+        type="radio"
+        value="true"
+        checked={this.state.cigarettes === "true"}
+        onChange={this.onRadioChange}
+      />
+      <span>Yes</span>
+    </label>
+  </li>
+</ul>
+<br/>
+
+<strong>Do you drink alcohol quite often?</strong>
+
+<ul>
+<li>
+<label>
+<input
+name="alcohol"
+type="radio"
+value="false"
+checked={this.state.alcohol === "false"}
+onChange={this.onRadioChange}
+/>
+<span>No</span>
+</label>
+</li>
+
+<li>
+<label>
+<input
+name="alcohol"
+type="radio"
+value="true"
+checked={this.state.alcohol === "true"}
+onChange={this.onRadioChange}
+/>
+<span>Yes</span>
+</label>
+</li>
+</ul>
                 <br/>
 
                 <label>
@@ -98,8 +177,10 @@ class InterviewForm extends React.Component {
                         />
                 </label>
                 <br/>
+                {this.state.family_diseases !=='' &&  this.state.symptoms !=='' && this.state.injury !=='' && this.state.drugs !=='' &&
                 <button onClick={ this.handleSubmit }>Submit</button>
-            </form>
+              }
+                </form>
         )
     }
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import InterviewForm from './Forms/interviewForm';
-import {getCookie} from '../utilities';
 
 
 class InterviewPage extends React.Component {
@@ -10,16 +9,10 @@ class InterviewPage extends React.Component {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'X-CSRFToken': getCookie('csrftoken'),
           },
           body: JSON.stringify(interviewData)
         })
         .then( data => data.json())
-        .then(
-          data => {
-            console.log(data.token);
-          }
-        )
         .catch( error => console.error(error))
     }
 
