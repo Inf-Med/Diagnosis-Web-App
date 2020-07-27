@@ -14,8 +14,8 @@ class Navbar extends React.Component {
     render() {
         return (
             <nav id="navBar" className="nav-wrapper darken-3">
-                <div className="container">
-                    <a id="logo" href="/" className="brand-logo">Diagnosis app</a>
+                <div class="navbar-fixed" className="container">
+                    <a id="logo" href="/" className="brand-logo">WebMed</a>
                     <ul className="right">
                         <li><NavLink to="/">Home</NavLink></li>
                         <li><NavLink to="/quest">Interview</NavLink></li>
@@ -25,6 +25,8 @@ class Navbar extends React.Component {
                     </ul>
                 </div>
             </nav>
+
+
         )
     }
 }
