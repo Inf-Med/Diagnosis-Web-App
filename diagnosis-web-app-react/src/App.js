@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css'
 import {BrowserRouter, Route} from 'react-router-dom';
+import {getCookie} from './components/projectUtilities';
 import LoginPage from './components/pages/loginPage';
 import RegisterPage from './components/pages/registerPage';
 import QuestPage from './components/pages/questPage';
@@ -12,12 +13,11 @@ import Navbar from './components/pages/navBar/navBar';
 class App extends React.Component {
 
   state = {
-    token: ""
+    token: "",
+    isUserLoggedIn: false
   }
 
   componentDidMount = () => {
-    //console.log(localStorage.token);
-    //console.log(sessionStorage.token);
     window.addEventListener('beforeunload', (event) => {
       event.preventDefault();
       this.sendSessionEndingRequest();
@@ -25,28 +25,47 @@ class App extends React.Component {
     })
   }
 
+  changeIsUserLoggedInState = () => {
+    console.log(this.state.isUserLoggedIn);
+    let isLoggedIn = !this.state.isUserLoggedIn;
+    this.setState({isUserLoggedIn: isLoggedIn});
+  }
+
   setLoginSessionToken = (token) => {
     this.setState({token})
   }
 
   sendSessionEndingRequest = () => {
-    fetch('http://127.0.0.1:8000/users/logout/' + localStorage.token)
-      .then(localStorage.clear())
-      .then(sessionStorage.clear())
+    fetch('http://127.0.0.1:8000/users/logout/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken'),
+        },
+        body: JSON.stringify(localStorage.token)
+    })
   }
-
-
 
   render() {
     return (
           <div className="App">
                 <BrowserRouter>
-                    <Navbar token={ this.state.token }/>
-                        <Route path="/login" render={ () => <LoginPage setLoginSessionToken={ this.setLoginSessionToken } /> } />
-                        <Route path="/register" component={ RegisterPage } />
-                        <Route path="/quest" component={ QuestPage } />
-                        <Route path="/interview" component={ InterviewPage } />
-                        <Route exact path="/" component={ HomePage } />
+                    <Navbar
+                      token={ this.state.token }
+                      isUserLoggedIn={ this.state.isUserLoggedIn }
+                      changeUserState={ this.changeIsUserLoggedInState }
+                    />
+                    <Route path="/login" render={ () => (
+                      <LoginPage
+                        setLoginSessionToken={ this.setLoginSessionToken }
+                        changeUserState={ this.changeIsUserLoggedInState }
+                      />
+                      )}
+                    />
+                    <Route path="/register" component={ RegisterPage } />
+                    <Route path="/quest" component={ QuestPage } />
+                    <Route path="/interview" component={ InterviewPage } />
+                    <Route exact path="/" component={ HomePage } />
                 </BrowserRouter>
           </div>
     );

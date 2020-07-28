@@ -28,7 +28,7 @@ class LoginForm extends React.Component {
 
     render() {
         return (
-            <div id="wrapper">
+            <div>
                 <div className="input-data">
                   <label><strong>Username:</strong></label>
                     <input type="text" name="username"

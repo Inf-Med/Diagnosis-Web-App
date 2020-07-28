@@ -18,10 +18,10 @@ class InterviewPage extends React.Component {
 
     render() {
         return (
-            <div>
-                <br/>
-                <br/>
-                <InterviewForm sendInterviewRequest={ this.interview }/>
+            <div id="content">
+                <div id="wrapper">
+                    <InterviewForm sendInterviewRequest={ this.interview }/>
+                </div>
             </div>
         )
     }

@@ -47,7 +47,7 @@ class InterviewForm extends React.Component {
 
           render() {
               return (
-                  <div id="wrapper">
+                  <div>
                        <strong>Are you pregnant:</strong>
 
             <ul>

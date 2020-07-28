@@ -2,7 +2,6 @@ from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from rest_framework.serializers import ModelSerializer
-from django.db.models import Q
 from rest_framework.authtoken.models import Token
 
 
@@ -71,10 +70,7 @@ class UserLoginSerializer(ModelSerializer):
             raise serializers.ValidationError("A username or email is required to login.")
 
         # check if user exists
-        user = User.objects.filter(
-            Q(email=email) |
-            Q(username=username)
-        ).distinct()
+        user = User.objects.filter(email=email, username=username)
         user = user.exclude(email__isnull=True).exclude(email__iexact='')
         if user.exists() and user.count() == 1:
             user_obj = user.first()

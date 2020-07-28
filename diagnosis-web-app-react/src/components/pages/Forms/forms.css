@@ -40,3 +40,28 @@
   padding: 4px;
   border-radius: 3px;
 }
+
+#interviewBtn {
+  background-color: #CD5C5C;
+  color: white;
+  border: none;
+  padding: 4px;
+  border-radius: 3px;
+  font-size: 20px;
+  margin-left: 50px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+p {
+  margin-left: 50px;
+  font-size: 20px;
+}
+
+#home {
+  /*background-color: #F0F8FF;*/
+  border: none;
+  border-radius: 10px;
+  margin-left: 50px;
+  margin-right: 50px;
+}

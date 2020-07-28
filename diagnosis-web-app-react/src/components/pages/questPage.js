@@ -1,6 +1,6 @@
 import React from 'react';
 import QuestForm from './Forms/questForm';
-import {getCookie} from '../utilities';
+import {getCookie} from '../projectUtilities';
 
 
 class QuestPage extends React.Component {
@@ -25,10 +25,10 @@ class QuestPage extends React.Component {
 
     render() {
         return (
-            <div>
-                <br/>
-                <br/>
-                <QuestForm sendQuestRequest={ this.quest }/>
+            <div id="content">
+                <div id="wrapper">
+                  <QuestForm sendQuestRequest={ this.quest }/>
+                </div>
             </div>
         )
     }
