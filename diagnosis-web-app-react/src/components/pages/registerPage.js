@@ -1,6 +1,5 @@
 import React from 'react';
 import RegisterForm from './Forms/registerForm';
-import {getCookie} from '../utilities';
 
 
 class RegisterPage extends React.Component {

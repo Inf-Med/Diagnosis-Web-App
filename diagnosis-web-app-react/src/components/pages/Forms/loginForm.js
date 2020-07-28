@@ -1,4 +1,5 @@
 import React from 'react';
+import './forms.css'
 
 
 class LoginForm extends React.Component {
@@ -6,7 +7,7 @@ class LoginForm extends React.Component {
     state = {
         username: '',
         email: '',
-        password: ''
+        password: '',
     }
 
     inputChanged = (event) => {
@@ -27,36 +28,32 @@ class LoginForm extends React.Component {
 
     render() {
         return (
-            <form id="login">
-                <label>
-                    Username:
+            <div id="wrapper">
+                <div className="input-data">
+                  <label><strong>Username:</strong></label>
                     <input type="text" name="username"
                         value={ this.state.username }
                         onChange={ this.inputChanged }
                         />
-                </label>
-                <br/>
-
-                <label>
-                    Email:
+                </div>
+                <div className="input-data">
+                    <label><strong>Email:</strong></label>
                     <input type="text" name="email"
                         value={ this.state.email }
                         onChange={ this.inputChanged }
                         />
-                </label>
-                <br/>
-
-                <label>
-                    Password:
+                </div>
+                <div className="input-data">
+                <label><strong>Password:</strong></label>
                     <input type="password" name="password"
                         value={ this.state.password }
                         onChange={ this.inputChanged }
                         />
-                </label>
-                <br/>
-
-                <button onClick={ this.handleSubmit }>Login</button>
-            </form>
+               </div>
+                { this.state.username !==0 &&  this.state.email !==0 && this.state.password !=='' &&
+                    <button id="submitBtn" onClick={this.handleSubmit}>Login</button>
+                }
+            </div>
         )
     }
 

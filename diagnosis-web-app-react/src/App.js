@@ -6,8 +6,7 @@ import RegisterPage from './components/pages/registerPage';
 import QuestPage from './components/pages/questPage';
 import InterviewPage from './components/pages/interviewPage';
 import HomePage from './components/pages/homePage';
-//import DiagnosisPage from './components/pages/diagnosisPage';
-import Navbar from './components/pages/navBar';
+import Navbar from './components/pages/navBar/navBar';
 
 
 class App extends React.Component {
@@ -17,8 +16,8 @@ class App extends React.Component {
   }
 
   componentDidMount = () => {
-    console.log(localStorage.token);
-    console.log(sessionStorage.token);
+    //console.log(localStorage.token);
+    //console.log(sessionStorage.token);
     window.addEventListener('beforeunload', (event) => {
       event.preventDefault();
       this.sendSessionEndingRequest();

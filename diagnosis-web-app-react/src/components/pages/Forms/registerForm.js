@@ -7,7 +7,11 @@ class RegisterForm extends React.Component {
         username: '',
         email: '',
         email2: '',
-        password: ''
+        password: '',
+        usernameError: '',
+        emailError: '',
+        email2Error: '',
+        passwordError: ''
 }
 
     inputChanged = (event) => {
@@ -15,6 +19,63 @@ class RegisterForm extends React.Component {
         cred[event.target.name] = event.target.value;
         this.setState({cred});
     }
+
+    usernameChanged = (event) => {
+      this.setState({ username : event.target.value }, () =>{
+        this.validateUsername();
+      });
+    };
+
+     validateUsername = (e) =>{
+          const{username} = this.state;
+          this.setState({
+            usernameError:
+            username.length > 2 || username === '' ? null : 'Username must be longer than 2 characters'
+          });
+     }
+
+     emailChanged = (event) => {
+      this.setState({ email : event.target.value }, () =>{
+        this.validateEmail();
+      });
+     };
+
+     validateEmail = (e) =>{
+          const{email} = this.state;
+          this.setState({
+            emailError:
+            email.includes('@') && email.length > 2 ? null : 'Email is invalid'
+          });
+     }
+
+     email2Changed = (event) => {
+      this.setState({ email2 : event.target.value }, () =>{
+        this.validateEmail2();
+      });
+     };
+
+     validateEmail2 = (e) =>{
+          const{email2} = this.state;
+          const{email} = this.state;
+          this.setState({
+            email2Error:
+            email2.includes('@') && email2.length > 2 && email === email2 ? null : 'Emails must match.'
+          });
+     }
+
+     passwordChanged = (event) => {
+      this.setState({ password : event.target.value }, () =>{
+        this.validatePassword();
+      });
+     };
+
+     validatePassword = (e) =>{
+          const{password} = this.state;
+          this.setState({
+            passwordError:
+            password.length >= 8 ? null : 'Password must contains at least 8 characters.'
+          });
+     }
 
     handleSubmit = (e) => {
         e.preventDefault();
@@ -29,45 +90,56 @@ class RegisterForm extends React.Component {
 
     render() {
         return (
-            <form id="register">
-                <label>
-                    Username:
+            <div id="wrapper">
+                <div className="input-data">
+                    <label><strong>Username:</strong></label>
                     <input type="text" name="username"
                         value={ this.state.username }
-                        onChange={ this.inputChanged }
+                        onChange={ this.usernameChanged }
+                        className={`form-control ${this.state.usernameError ? 'is-invalid' : ''}`}
+                        onBlur={this.validateUsername}
                         />
-                </label>
-                <br/>
+                </div>
+                <div className='invalid-feedback'>{this.state.usernameError}</div>
 
-                <label>
-                    Email:
+                <div className="input-data">
+                <label><strong>Email:</strong></label>
                     <input type="text" name="email"
                         value={ this.state.email }
-                        onChange={ this.inputChanged }
+                        onChange={ this.emailChanged }
+                        className={`form-control ${this.state.emailError ? 'is-invalid' : ''}`}
+                        onBlur={this.validateEmail}
                         />
-                </label>
-                <br/>
+                </div>
+                <div className='invalid-feedback'>{this.state.emailError}</div>
 
-                <label>
-                    Confirm Email:
+                <div className="input-data">
+                <label><strong>Confirm Email:</strong></label>
                     <input type="text" name="email2"
                         value={ this.state.email2 }
-                        onChange={ this.inputChanged }
+                        onChange={ this.email2Changed }
+                        className={`form-control ${this.state.email2Error ? 'is-invalid' : ''}`}
+                        onBlur={this.validateEmail2}
                         />
-                </label>
-                <br/>
+                </div>
+                <div className='invalid-feedback'>{this.state.email2Error}</div>
 
-                <label>
-                    Password:
+                <div className="input-data">
+                <label><strong>Password:</strong></label>
                     <input type="password" name="password"
                         value={ this.state.password }
-                        onChange={ this.inputChanged }
+                        onChange={ this.passwordChanged }
+                        className={`form-control ${this.state.passwordError ? 'is-invalid' : ''}`}
+                        onBlur={this.validatePassword}
                         />
-                </label>
-                <br/>
+                </div>
+                <div className='invalid-feedback'>{this.state.passwordError}</div>
 
-                <button onClick={ this.handleSubmit }>Register</button>
-            </form>
+                { this.state.username !==0 &&  this.state.email !==0 && this.state.email2 !==0 && this.state.password !==''
+                && !this.state.usernameError && !this.state.emailError && !this.state.passwordError && !this.state.email2Error &&
+                <button id="submitBtn" onClick={this.handleSubmit}>Register</button>
+                }
+            </div>
         )
     }
 

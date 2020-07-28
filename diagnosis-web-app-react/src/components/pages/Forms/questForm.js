@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Link, NavLink, withRouter } from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 
 class QuestForm extends React.Component {
@@ -98,29 +98,31 @@ class QuestForm extends React.Component {
 
     render() {
         return (
-            <form id="quest">
+            <div id="wrapper">
               <div>
                 <label>
                     First name:
+                    <div className="input-data">
                     <input type="text" name="first_name"
                         value={ this.state.first_name }
                         onChange={ this.FirstChanged }
                         className={`form-control ${this.state.first_nameError ? 'is-invalid' : ''}`}
                         onBlur={this.validatefirst_name}
                         />
-
+                    </div>
                 </label>
                 <div className='invalid-feedback'>{this.state.first_nameError}</div>
         </div>
         <div>
                 <label>
                     Last name:
+                    <div className="input-data">
                     <input type="text" name="last_name"
                         value={ this.state.last_name }
                         onChange={ this.LastChanged}
                         onBlur={this.validatelast_name}
                         />
-
+                    </div>
                 </label>
                 <div className='invalid-feedback'>{this.state.last_nameError}</div>
         </div>
@@ -156,12 +158,13 @@ class QuestForm extends React.Component {
 <div>
                 <label>
                     Age:
+                    <div className="input-data">
                     <input type="number" name="age"
                         value={ this.state.age }
                         onChange={ this.handleChanged }
                         onBlur={this.validateage}
                         />
-
+                    </div>
                 </label>
                 <div className='invalid-feedback'>{this.state.ageError}</div>
         </div>
@@ -169,39 +172,41 @@ class QuestForm extends React.Component {
 
                 <label>
                     Date of birth:
+                    <div className="input-data">
                     <input type="date" name="date_of_birth"
                         value={ this.state.date_of_birth }
                         onChange={ this.handleChanged }
                         />
+                    </div>
                 </label>
                 <br/>
               <div>
                 <label>
                     Pesel
+                    <div className="input-data">
                     <input type="number" name="pesel"
                         value={ this.state.pesel }
                         onChange={ this.PeselChanged }
                         onBlur={this.validatepesel}
                         />
-
+                    </div>
                 </label>
-
-
 
                 <div>
                     <Link to="/interview">
-                        <button type="button">
+                        <button id="submitBtn" type="button">
                             Next Page
                         </button>
                     </Link>
                 </div>
                 <div className='invalid-feedback'>{this.state.peselError}</div>
                 </div>
-                {this.state.pesel !==0 &&  this.state.age !==0 && this.state.first_name !=='' && this.state.last_name !=='' && !this.state.peselError && !this.state.ageError && !this.state.last_nameError && !this.state.first_nameError &&
-                <button type = "submit" onClick={this.handleSubmit}>Submit
+                {this.state.pesel !==0 &&  this.state.age !==0 && this.state.first_name !=='' && this.state.last_name !==''
+                && !this.state.peselError && !this.state.ageError && !this.state.last_nameError && !this.state.first_nameError &&
+                <button id="submitBtn" type="submit" onClick={this.handleSubmit}>Submit
                 </button>
               }
-            </form>
+            </div>
 
         )
     }
