@@ -65,7 +65,10 @@ class App extends React.Component {
                     <Route path="/register" component={ RegisterPage } />
                     <Route path="/quest" component={ QuestPage } />
                     <Route path="/interview" component={ InterviewPage } />
-                    <Route exact path="/" component={ HomePage } />
+                    <Route exact path="/" render={ () => (
+                      <HomePage isUserLoggedIn={ this.state.isUserLoggedIn }/>
+                      )}
+                    />
                 </BrowserRouter>
           </div>
     );

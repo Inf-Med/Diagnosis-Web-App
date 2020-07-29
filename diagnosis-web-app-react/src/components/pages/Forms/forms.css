@@ -45,12 +45,11 @@
   background-color: #CD5C5C;
   color: white;
   border: none;
-  padding: 4px;
   border-radius: 3px;
   font-size: 20px;
-  margin-left: 50px;
-  margin-bottom: 20px;
   cursor: pointer;
+  margin-top: 20px;
+  padding: 4px;
 }
 
 p {

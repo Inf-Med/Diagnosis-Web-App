@@ -83,7 +83,6 @@ class Navbar extends React.Component {
                 suitedNavbarElements =
                     <ul id="menu">
                         <li><NavLink to="/" className="menuString">Home</NavLink></li>
-                        <li><NavLink to="/quest" className="menuString">Interview</NavLink></li>
                         <li><NavLink to="/login" className="menuString">Login</NavLink></li>
                         <li><NavLink to="/register" className="menuString">Register</NavLink></li>
                     </ul>
