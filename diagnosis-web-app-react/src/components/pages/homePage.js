@@ -1,6 +1,5 @@
 import React from 'react';
-import HomeForm from './Forms/homeForm';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 class HomePage extends React.Component {

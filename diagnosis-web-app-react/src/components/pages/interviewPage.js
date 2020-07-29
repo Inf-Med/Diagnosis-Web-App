@@ -1,5 +1,6 @@
 import React from 'react';
 import InterviewForm from './Forms/interviewForm';
+import { Redirect } from 'react-router-dom';
 
 
 class InterviewPage extends React.Component {
@@ -17,10 +18,15 @@ class InterviewPage extends React.Component {
     }
 
     render() {
+        let interview;
+        if (this.props.isUserLoggedIn === true)
+            interview = <InterviewForm sendInterviewRequest={ this.interview }/>
+        else
+            interview = <Redirect to="/login"></Redirect>
         return (
             <div id="content">
                 <div id="wrapper">
-                    <InterviewForm sendInterviewRequest={ this.interview }/>
+                   { interview }
                 </div>
             </div>
         )

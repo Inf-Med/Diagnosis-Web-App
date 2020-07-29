@@ -59,12 +59,22 @@ class App extends React.Component {
                       <LoginPage
                         setLoginSessionToken={ this.setLoginSessionToken }
                         changeUserState={ this.changeIsUserLoggedInState }
+                        isUserLoggedIn={ this.state.isUserLoggedIn }
                       />
                       )}
                     />
-                    <Route path="/register" component={ RegisterPage } />
-                    <Route path="/quest" component={ QuestPage } />
-                    <Route path="/interview" component={ InterviewPage } />
+                    <Route path="/register" render={ () => (
+                      <RegisterPage isUserLoggedIn={ this.state.isUserLoggedIn }/>
+                      )}
+                    />
+                    <Route path="/quest" render={ () => (
+                      <QuestPage isUserLoggedIn={ this.state.isUserLoggedIn }/>
+                      )}
+                    />
+                    <Route path="/interview" render={ () => (
+                      <InterviewPage isUserLoggedIn={ this.state.isUserLoggedIn }/>
+                      )}
+                    />
                     <Route exact path="/" render={ () => (
                       <HomePage isUserLoggedIn={ this.state.isUserLoggedIn }/>
                       )}

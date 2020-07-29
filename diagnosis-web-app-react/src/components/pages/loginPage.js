@@ -54,6 +54,7 @@ class LoginPage extends React.Component {
     }
 
     render() {
+
         let alertMessage;
         if (this.state.showPopupMessage === true) alertMessage =
           <AlertMessage message={ this.state.message } messageClass={ this.state.messageClass } clearParentState={ this.clearState } />
