@@ -2,22 +2,13 @@ import React from 'react';
 import LoginForm from './Forms/loginForm';
 import AlertMessage from '../alertMessage/alertMessage';
 import {getCookie} from '../projectUtilities';
+import { Redirect } from 'react-router-dom';
 
 
 class LoginPage extends React.Component {
 
     state = {
-      showPopupMessage: false,
-      message: "",
-      messageClass: "",
-    }
-
-    clearState = () => {
-      this.setState({
-        showPopupMessage: false,
-        message: "",
-        messageClass: "",
-      })
+      endpointToRedirect: ""
     }
 
     login = (loginData) => {
@@ -30,16 +21,11 @@ class LoginPage extends React.Component {
           body: JSON.stringify(loginData)
         })
         .then( (data) => {
-          if (data.status !== 200) this.setState({
-            showPopupMessage: true,
-            message: "Login failed. Please try again.",
-            messageClass: "errorMessage"
-          });
-          else this.setState({
-            showPopupMessage: true,
-            message: "Login successfull.",
-            messageClass: "successMessage"
-          });
+          if (data.status !== 200) this.props.editAlertMessageState(true, "Login failed. Please, try again.", "errorMessage");
+          else {
+            this.props.editAlertMessageState(true, "Login successfull.", "successMessage");
+            this.props.changeUserState();
+          }
           return data.json();
         })
         .then(
@@ -49,20 +35,20 @@ class LoginPage extends React.Component {
             sessionStorage.setItem('token', data.token);
           }
         )
-        .then( () => this.props.changeUserState())
         .catch( error => console.error(error))
     }
 
     render() {
+        let maybeRedirect;
+        if (this.props.isUserLoggedIn === false)
+            maybeRedirect = <LoginForm sendLoginRequest={ this.login }/>
+        else
+            maybeRedirect = <Redirect to="/"></Redirect>
 
-        let alertMessage;
-        if (this.state.showPopupMessage === true) alertMessage =
-          <AlertMessage message={ this.state.message } messageClass={ this.state.messageClass } clearParentState={ this.clearState } />
         return (
             <div id="content">
-                { alertMessage }
                 <div id="wrapper">
-                  <LoginForm sendLoginRequest={ this.login }/>
+                  { maybeRedirect }
                 </div>
             </div>
         )

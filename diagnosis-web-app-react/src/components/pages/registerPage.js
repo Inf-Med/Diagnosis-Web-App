@@ -2,22 +2,13 @@ import React from 'react';
 import RegisterForm from './Forms/registerForm';
 import AlertMessage from '../alertMessage/alertMessage';
 import {getCookie} from '../projectUtilities';
+import { Redirect } from 'react-router-dom';
 
 
 class RegisterPage extends React.Component {
 
     state = {
-      showPopupMessage: false,
-      message: "",
-      messageClass: "",
-    }
-
-    clearState = () => {
-      this.setState({
-        showPopupMessage: false,
-        message: "",
-        messageClass: "",
-      })
+      shouldUserBeRedirected: false
     }
 
     register = (registerData) => {
@@ -30,35 +21,30 @@ class RegisterPage extends React.Component {
         body: JSON.stringify(registerData)
       })
       .then( (data) => {
-        //console.log(data.status)
-          if (data.status !== 201) this.setState({
-            showPopupMessage: true,
-            message: "Registration failed. Please try again.",
-            messageClass: "errorMessage"
-          });
-          else this.setState({
-            showPopupMessage: true,
-            message: "Registration successfull.",
-            messageClass: "successMessage"
-          });
+          if (data.status !== 201) this.props.editAlertMessageState(true, "Registration failed. Please try again.", "errorMessage");
+          else {
+            this.props.editAlertMessageState(true, "Your acount has been created. Now you are able to log in.", "successMessage");
+            this.setState({shouldUserBeRedirected: true});
+          }
           return data.json();
         })
       .catch( error => console.error(error))
     }
 
     render() {
+      let maybeRedirect;
+        if (this.state.shouldUserBeRedirected === false)
+            maybeRedirect = <RegisterForm sendRegisterRequest={ this.register }/>
+        else
+            maybeRedirect = <Redirect to="/login"></Redirect>
 
-      let alertMessage;
-       if (this.state.showPopupMessage === true) alertMessage =
-          <AlertMessage message={ this.state.message } messageClass={ this.state.messageClass } clearParentState={ this.clearState } />
-        return (
-            <div id="content">
-              { alertMessage }
-                <div id="wrapper">
-                  <RegisterForm sendRegisterRequest={ this.register }/>
-                </div>
-            </div>
-        )
+      return (
+          <div id="content">
+              <div id="wrapper">
+                { maybeRedirect }
+              </div>
+          </div>
+      )
     }
 }
 

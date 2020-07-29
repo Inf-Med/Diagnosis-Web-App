@@ -8,13 +8,19 @@ import QuestPage from './components/pages/questPage';
 import InterviewPage from './components/pages/interviewPage';
 import HomePage from './components/pages/homePage';
 import Navbar from './components/pages/navBar/navBar';
+import AlertMessage from './components/alertMessage/alertMessage';
 
 
 class App extends React.Component {
 
   state = {
     token: "",
-    isUserLoggedIn: false
+    isUserLoggedIn: false,
+    message: {
+      showPopupMessage: false,
+      text: "",
+      messageClass: "",
+    }
   }
 
   componentDidMount = () => {
@@ -23,6 +29,22 @@ class App extends React.Component {
       this.sendSessionEndingRequest();
       event.returnValue = '';
     })
+  }
+
+  clearAlertMessageState = () => {
+    this.setState({message: {
+      showPopupMessage: false,
+      text: "",
+      messageClass: "",
+    }})
+  }
+
+  editAlertMessageState = (showMessage, messageText, className) => {
+    this.setState({message: {
+        showPopupMessage: showMessage,
+        text: messageText,
+        messageClass: className,
+    }})
   }
 
   changeIsUserLoggedInState = () => {
@@ -47,6 +69,10 @@ class App extends React.Component {
   }
 
   render() {
+    let alertMessage;
+    if (this.state.message.showPopupMessage === true)
+      alertMessage = <AlertMessage message={ this.state.message.text } messageClass={ this.state.message.messageClass } clearParentState={ this.clearAlertMessageState } />
+
     return (
           <div className="App">
                 <BrowserRouter>
@@ -54,17 +80,23 @@ class App extends React.Component {
                       token={ this.state.token }
                       isUserLoggedIn={ this.state.isUserLoggedIn }
                       changeUserState={ this.changeIsUserLoggedInState }
+                      editAlertMessageState={ this.editAlertMessageState }
                     />
+                    { alertMessage }
                     <Route path="/login" render={ () => (
                       <LoginPage
                         setLoginSessionToken={ this.setLoginSessionToken }
                         changeUserState={ this.changeIsUserLoggedInState }
                         isUserLoggedIn={ this.state.isUserLoggedIn }
+                        editAlertMessageState={ this.editAlertMessageState }
                       />
                       )}
                     />
                     <Route path="/register" render={ () => (
-                      <RegisterPage isUserLoggedIn={ this.state.isUserLoggedIn }/>
+                      <RegisterPage
+                        isUserLoggedIn={ this.state.isUserLoggedIn }
+                        editAlertMessageState={ this.editAlertMessageState }
+                      />
                       )}
                     />
                     <Route path="/quest" render={ () => (

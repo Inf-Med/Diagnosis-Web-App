@@ -7,20 +7,6 @@ import {getCookie} from '../../projectUtilities';
 
 class Navbar extends React.Component {
 
-    state = {
-      showPopupMessage: false,
-      message: "",
-      messageClass: "",
-    }
-
-    clearState = () => {
-      this.setState({
-        showPopupMessage: false,
-        message: "",
-        messageClass: "",
-      })
-    }
-
     logout = () => {
         fetch('http://127.0.0.1:8000/users/logout/', {
             method: 'POST',
@@ -31,21 +17,14 @@ class Navbar extends React.Component {
             body: JSON.stringify(this.props.token)
         })
         .then( (data) => {
-            console.log(data.status)
-            if (data.status !== 200) this.setState({
-                showPopupMessage: true,
-                message: "Logout failed. Please try again.",
-                messageClass: "errorMessage"
-              });
-              else this.setState({
-                showPopupMessage: true,
-                message: "Logout successfull.",
-                messageClass: "successMessage"
-              });
-            })
+            if (data.status !== 200) this.props.editAlertMessageState(true, "Logout failed. Please try again.", "errorMessage");
+            else {
+                this.props.editAlertMessageState(true, "Logout successfull.", "successMessage");
+                this.props.changeUserState();
+            }
+        })
         .then(localStorage.clear())
         .then(sessionStorage.clear())
-        .then( () => {this.props.changeUserState()})
         .catch( error => console.error(error))
 
     }
@@ -63,14 +42,6 @@ class Navbar extends React.Component {
     }
 
         render() {
-            let alertMessage;
-            if (this.state.showPopupMessage === true) alertMessage =
-                <AlertMessage
-                    message={ this.state.message }
-                    messageClass={ this.state.messageClass }
-                    clearParentState={ this.clearState }
-                />
-
             let suitedNavbarElements;
             if (this.props.isUserLoggedIn === true)
                 suitedNavbarElements =
@@ -99,9 +70,6 @@ class Navbar extends React.Component {
                             { suitedNavbarElements }
                         </div>
                     </nav>
-                    <div id="content">
-                        { alertMessage }
-                    </div>
                 </div>
             )
     }
