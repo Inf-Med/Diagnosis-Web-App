@@ -36,17 +36,20 @@ class Quest2(models.Model):
 
 
 class Symptoms(models.Model):
-    symptoms_cui = models.CharField(max_length=20, null=False)
+    symptom_cui = models.CharField(max_length=20, null=False, primary_key=True)
     term = models.CharField(max_length=200, null=True)
     number_of_diseases = models.IntegerField(null=True)
 
+    def __str__(self):
+        return self.term
+
 
 class Diseases(models.Model):
-    disease_cui = models.CharField(max_length=20, null=False)
-    term = models.CharField(max_length=200, null=True)
+    disease_cui = models.CharField(max_length=20, null=False, primary_key=True)
+    term = models.TextField(null=True)
     number_of_symptoms = models.IntegerField(null=True)
 
 
 class DiseasesToSymptoms(models.Model):
-    disease_cui = models.ForeignKey(Diseases, on_delete=models.CASCADE)
-    symptoms_cui = models.ForeignKey(Symptoms, on_delete=models.CASCADE)
+    disease_cui = models.ForeignKey(Diseases, on_delete=models.CASCADE, db_column="disease_cui")
+    symptom_cui = models.ForeignKey(Symptoms, on_delete=models.CASCADE, db_column="symptom_cui")

@@ -38,28 +38,4 @@ class Migration(migrations.Migration):
                 ('family_diseases', models.CharField(choices=[('1', 'Diabetes'), ('2', "Huntington's chorea"), ('3', 'Cystic fibrosis')], max_length=100)),
             ],
         ),
-        migrations.CreateModel(
-            name='Symptoms',
-            fields=[
-                ('symptom_cui', models.CharField(primary_key=True,max_length=20, null=False)),
-                ('term', models.CharField(max_length=200, null=True)),
-                ('number_of_diseases', models.IntegerField(null=True))
-            ],
-        ),
-        migrations.CreateModel(
-            name='Diseases',
-            fields=[
-                ('disease_cui', models.CharField(primary_key=True, max_length=20, null=False)),
-                ('term', models.CharField(max_length=200, null=True)),
-                ('number_of_symptoms', models.IntegerField(null=True))
-            ],
-        ),
-        migrations.CreateModel(
-            name='DiseasesToSymptoms',
-            fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('symptom_cui', models.CharField(max_length=20, null=False)),
-                ('disease_cui', models.CharField(max_length=20, null=False)),
-            ],
-        ),
     ]

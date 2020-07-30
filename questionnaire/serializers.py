@@ -15,7 +15,6 @@ class QuestSerializer(serializers.ModelSerializer):
     pesel = serializers.CharField(required=False, default="00000000000")
     sex = serializers.CharField(max_length=100, default="Female")
 
-
     class Meta:
         model = Quest
         fields = [
@@ -56,7 +55,6 @@ class QuestSerializer(serializers.ModelSerializer):
 
 
 class QuestSerializer2(serializers.ModelSerializer):
-
     Diseases_choices = (
         ("1", "Diabetes"),
         ("2", "Huntington's chorea"),
@@ -115,3 +113,17 @@ class QuestSerializer2(serializers.ModelSerializer):
 
         instance.save()
         return instance
+
+
+# ToDo refactor
+class SymptomSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Symptoms
+        fields = ['symptom_cui', 'term']
+
+
+# ToDo refactor
+class DSSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DiseasesToSymptoms
+        fields = ['disease_cui', 'symptom_cui']
