@@ -1,32 +1,33 @@
-import React from 'react';
+import React, { Component, useState } from 'react';
+import moment from 'moment';
 import { Link } from 'react-router-dom';
-
-
+import './questionnaire.css'
 class QuestForm extends React.Component {
-
   constructor() {
     super();
     this.state = {
       "first_name": "",
       "first_nameError":"",
+      "first_nameError2":"",
       "last_name": "",
+      "last_nameError2":"",
       "last_nameError":"",
       "age": 0,
-      "ageError":"",
-      "date_of_birth": new Date(),
-      "pesel": 0,
+      "date_of_birth": "",
+      "dateError":"",
+      "dateError2":"",
+      "dateError3":"",
+      "pesel": "",
       "peselError":"",
-      "sex": 'f'
+      "peselError2":"",
+      "sex": 'f',
+      "count":0,
     };
 
-    this.handleChanged = this.handleChanged.bind(this);
     this.onRadioChange = this.onRadioChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 
   }
-    handleChanged = (event) => {
-        this.setState({ [event.target.name] : event.target.value });
-    }
 
     LastChanged = (event) => {
       this.setState({ last_name : event.target.value }, () =>{
@@ -37,7 +38,9 @@ class QuestForm extends React.Component {
       const{last_name} = this.state;
       this.setState({
         last_nameError:
-        last_name.length > 3 || last_name === '' ? null : 'Last name must be longer than 3 characters'
+        last_name.length > 2 || last_name === '' ? null : 'Last name must be longer than 2 characters',
+        last_nameError2:
+        isNaN(last_name) ? null : 'Last name cannot contain number'
       });
     }
     FirstChanged = (event) => {
@@ -49,19 +52,9 @@ class QuestForm extends React.Component {
       const{first_name} = this.state;
       this.setState({
         first_nameError:
-        first_name.length > 3 || first_name === '' ? null : 'First name must be longer than 3 characters'
-      });
-    }
-    AgeChanged = (event) => {
-      this.setState({ age : event.target.value }, () =>{
-        this.validateage();
-      });
-  };
-    validateage = (e) =>{
-      const{age} = this.state;
-      this.setState({
-        ageError:
-        (age > 0 && age < 99) || age === 0 ? null : 'Age is out of range 0-99',
+        first_name.length > 2 || first_name === '' ? null : 'First name must be longer than 2 characters',
+        first_nameError2:
+        isNaN(first_name) ? null : 'First name cannot contain number'
       });
     }
 
@@ -72,63 +65,96 @@ class QuestForm extends React.Component {
   };
     validatepesel = (e) =>{
       const{pesel} = this.state;
+      var reg = new RegExp('^[0-9]{11}$');
+      var date_of_birth = (this.state.date_of_birth).toString().substring(2,4)+(this.state.date_of_birth).toString().substring(5,7)+(this.state.date_of_birth).toString().substring(8,10);
+      var date_of_birth_00 = (this.state.date_of_birth).toString().substring(2,4)+"2"+(this.state.date_of_birth).toString().substring(6,7)+(this.state.date_of_birth).toString().substring(8,10);
+      var pesel_S = (pesel).toString()
       this.setState({
         peselError:
-        pesel.toString().length !==12 ? null : 'Pesel is in the wrong format',
+        reg.test(pesel) ? null : 'Pesel is in the wrong format',
+        peselError2:
+        date_of_birth.startsWith("00") ?
+        pesel_S.startsWith(date_of_birth_00) ? null : 'Pesel does not match the date of birth':
+        pesel_S.startsWith(date_of_birth) ? null : 'Pesel does not match the date of birth',
       });
     }
-
+    DateChanged = (event) => {
+      var age_count = new Date(event.target.value).getFullYear() === new Date().getFullYear()? 1: parseInt(moment(new Date(event.target.value),"yyyy-MM-dd").fromNow())-1;
+      this.setState({ date_of_birth : event.target.value,
+      age: age_count}, () =>{
+        this.validatedate();
+      });
+  };
+    validatedate = (e) =>{
+      const{date_of_birth} = this.state;
+      var reg = new RegExp('^(19|20)[0-9]{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$');
+      const date_now = new Date()
+      this.setState({
+        dateError:
+        reg.test(date_of_birth)? null : 'Date is in the wrong format',
+        dateError2:
+        new Date(date_of_birth) < date_now? null : 'Date is from future',
+        dateError3:
+        new Date(date_of_birth).getFullYear() > parseInt(new Date().getFullYear())-99 ? null : 'Have you more than 99 years ?',
+      });
+    }
     onRadioChange = (e) => {
       this.setState({
         sex: e.target.value
       });
     }
+
     handleSubmit = (e) => {
         e.preventDefault();
+        this.state.count = 1;
         this.props.sendQuestRequest(this.state);
         this.setState({
           "first_name": "",
           "last_name": "",
           "age": 0,
           "date_of_birth": "",
-          "pesel": 0,
+          "pesel": "",
           "sex": "f"
       })
     }
 
     render() {
         return (
+            <form id="quest" className="form-style-5">
+            {this.state.count !==1 &&
             <div>
               <div>
                 <label>
-                    First name:
-                    <div className="input-data">
+                    <h3>First name:</h3>
                     <input type="text" name="first_name"
                         value={ this.state.first_name }
                         onChange={ this.FirstChanged }
                         className={`form-control ${this.state.first_nameError ? 'is-invalid' : ''}`}
                         onBlur={this.validatefirst_name}
                         />
-                    </div>
+
                 </label>
                 <div className='invalid-feedback'>{this.state.first_nameError}</div>
+                <div className='invalid-feedback'>{this.state.first_nameError2}</div>
         </div>
+        <br/>
         <div>
                 <label>
-                    Last name:
-                    <div className="input-data">
+                    <h3>Last name:</h3>
                     <input type="text" name="last_name"
                         value={ this.state.last_name }
                         onChange={ this.LastChanged}
                         onBlur={this.validatelast_name}
                         />
-                    </div>
+
                 </label>
                 <div className='invalid-feedback'>{this.state.last_nameError}</div>
+                <div className='invalid-feedback'>{this.state.last_nameError2}</div>
         </div>
+        <br/>
+         <div>
+                <h3>Sex:</h3>
                 <br/>
-                <strong>Sex:</strong>
-
           <ul>
             <li>
               <label>
@@ -141,7 +167,6 @@ class QuestForm extends React.Component {
                 <span>Female</span>
               </label>
             </li>
-
             <li>
               <label>
                 <input
@@ -154,59 +179,57 @@ class QuestForm extends React.Component {
               </label>
             </li>
           </ul>
+          </div>
                 <br/>
 <div>
                 <label>
-                    Age:
-                    <div className="input-data">
-                    <input type="number" name="age"
-                        value={ this.state.age }
-                        onChange={ this.handleChanged }
-                        onBlur={this.validateage}
-                        />
-                    </div>
-                </label>
-                <div className='invalid-feedback'>{this.state.ageError}</div>
-        </div>
-                <br/>
-
-                <label>
-                    Date of birth:
-                    <div className="input-data">
-                    <input type="date" name="date_of_birth"
+                    <h3>Date of birth:</h3>
+                    <input
+                        type="text"
+                        name="date_of_birth"
                         value={ this.state.date_of_birth }
-                        onChange={ this.handleChanged }
+                        onChange={ this.DateChanged }
+                        placeholder={"YYYY-MM-DD"}
+                        onBlur={this.validatedate}
                         />
-                    </div>
                 </label>
                 <br/>
-              <div>
+                <div className='invalid-feedback'>{this.state.dateError}</div>
+                <div className='invalid-feedback'>{this.state.dateError2}</div>
+                <div className='invalid-feedback'>{this.state.dateError3}</div>
+        </div>
+
+        <div>
                 <label>
-                    Pesel
-                    <div className="input-data">
-                    <input type="number" name="pesel"
+                    <h3>Pesel:</h3>
+                    <input type="text" name="pesel"
                         value={ this.state.pesel }
                         onChange={ this.PeselChanged }
                         onBlur={this.validatepesel}
                         />
-                    </div>
-                </label>
 
-                <div>
-                    <Link to="/interview">
-                        <button id="submitBtn" type="button">
-                            Next Page
-                        </button>
-                    </Link>
-                </div>
+                </label>
+                <br/>
                 <div className='invalid-feedback'>{this.state.peselError}</div>
-                </div>
-                {this.state.pesel !==0 &&  this.state.age !==0 && this.state.first_name !=='' && this.state.last_name !==''
-                && !this.state.peselError && !this.state.ageError && !this.state.last_nameError && !this.state.first_nameError &&
-                <button id="submitBtn" type="submit" onClick={this.handleSubmit}>Submit
+                <div className='invalid-feedback'>{this.state.peselError2}</div>
+                <br/>
+        </div>
+        </div>
+    }
+                {this.state.pesel !=='' &&  this.state.date_of_birth !=='' && this.state.first_name !=='' && this.state.last_name !=='' && !this.state.peselError && !this.state.peselError2 && !this.state.ageError && !this.state.last_nameError && !this.state.last_nameError2 && !this.state.fiest_nameError2 && !this.state.first_nameError && !this.state.dateError && !this.state.dateError2 && !this.state.dateError3 &&
+                <button type = "submit" onClick={this.handleSubmit}>Submit
                 </button>
               }
-            </div>
+              {this.state.count ===1 &&
+              <div>
+              <Link to="/interview">
+                  <button >
+                      Next Page
+                  </button>
+              </Link>
+              </div>
+              }
+            </form> 
 
         )
     }
