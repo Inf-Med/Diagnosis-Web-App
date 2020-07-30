@@ -66,16 +66,16 @@ class QuestForm extends React.Component {
     validatepesel = (e) =>{
       const{pesel} = this.state;
       var reg = new RegExp('^[0-9]{11}$');
-      var date_of_birth = (this.state.date_of_birth).toString().substring(2,4)+(this.state.date_of_birth).toString().substring(5,7)+(this.state.date_of_birth).toString().substring(8,10);
+      var date_of_birth = (this.state.date_of_birth).toString().substring(0,4)+(this.state.date_of_birth).toString().substring(5,7)+(this.state.date_of_birth).toString().substring(8,10);
       var date_of_birth_00 = (this.state.date_of_birth).toString().substring(2,4)+"2"+(this.state.date_of_birth).toString().substring(6,7)+(this.state.date_of_birth).toString().substring(8,10);
       var pesel_S = (pesel).toString()
       this.setState({
         peselError:
         reg.test(pesel) ? null : 'Pesel is in the wrong format',
         peselError2:
-        date_of_birth.startsWith("00") ?
+        date_of_birth.startsWith("20")?
         pesel_S.startsWith(date_of_birth_00) ? null : 'Pesel does not match the date of birth':
-        pesel_S.startsWith(date_of_birth) ? null : 'Pesel does not match the date of birth',
+        pesel_S.startsWith(date_of_birth.substring(2,7)) ? null : 'Pesel does not match the date of birth',
       });
     }
     DateChanged = (event) => {

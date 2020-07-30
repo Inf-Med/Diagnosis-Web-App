@@ -7,6 +7,7 @@ import RegisterPage from './components/pages/registerPage';
 import QuestPage from './components/pages/questPage';
 import InterviewPage from './components/pages/interviewPage';
 import HomePage from './components/pages/homePage';
+import DiagnosisPage from './components/pages/diagnosisPage';
 import Navbar from './components/pages/navBar/navBar';
 import AlertMessage from './components/alertMessage/alertMessage';
 
@@ -109,6 +110,10 @@ class App extends React.Component {
                     />
                     <Route exact path="/" render={ () => (
                       <HomePage isUserLoggedIn={ this.state.isUserLoggedIn }/>
+                      )}
+                    />
+                    <Route exact path="/diagnosis" render={ () => (
+                      <DiagnosisPage isUserLoggedIn={ this.state.isUserLoggedIn }/>
                       )}
                     />
                 </BrowserRouter>
