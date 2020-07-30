@@ -1,6 +1,6 @@
 import React from 'react';
 import InterviewForm from './Forms/interviewForm';
-import {getCookie} from '../utilities';
+import { Redirect } from 'react-router-dom';
 
 
 class InterviewPage extends React.Component {
@@ -10,25 +10,24 @@ class InterviewPage extends React.Component {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'X-CSRFToken': getCookie('csrftoken'),
           },
           body: JSON.stringify(interviewData)
         })
         .then( data => data.json())
-        .then(
-          data => {
-            console.log(data.token);
-          }
-        )
         .catch( error => console.error(error))
     }
 
     render() {
+        let interview;
+        if (this.props.isUserLoggedIn === true)
+            interview = <InterviewForm sendInterviewRequest={ this.interview }/>
+        else
+            interview = <Redirect to="/login"></Redirect>
         return (
-            <div>
-                <br/>
-                <br/>
-                <InterviewForm sendInterviewRequest={ this.interview }/>
+            <div id="content">
+                <div id="wrapper">
+                   { interview }
+                </div>
             </div>
         )
     }

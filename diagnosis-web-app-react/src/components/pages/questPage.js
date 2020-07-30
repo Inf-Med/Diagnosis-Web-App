@@ -1,6 +1,7 @@
 import React from 'react';
 import QuestForm from './Forms/questForm';
-import {getCookie} from '../utilities';
+import {getCookie} from '../projectUtilities';
+import { Redirect } from 'react-router-dom';
 
 
 class QuestPage extends React.Component {
@@ -24,11 +25,18 @@ class QuestPage extends React.Component {
     }
 
     render() {
+      let quest;
+        if (this.props.isUserLoggedIn === true)
+            quest = <QuestForm sendQuestRequest={ this.quest }/>
+
+        else
+            quest = <Redirect to="/login"></Redirect>
+
         return (
-            <div>
-                <br/>
-                <br/>
-                <QuestForm sendQuestRequest={ this.quest }/>
+            <div id="content">
+                <div id="wrapper">
+                  { quest }
+                </div>
             </div>
         )
     }

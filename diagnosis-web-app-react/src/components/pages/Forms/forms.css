@@ -1,0 +1,66 @@
+#wrapper {
+  display: block;
+  width: 50%;
+  background: #fff;
+  padding: 30px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#wrapper .input-data{
+  margin-bottom: 30px;
+  height: 40px;
+  width: 100%;
+  position: relative;
+}
+
+#wrapper .input-data input{
+  height: 100%;
+  width: 100%;
+  border: none;
+  font-size: 17px;
+  border-bottom: 2px solid #0088cc;
+}
+
+#wrapper .input-data label {
+  color: grey;
+}
+
+@media (max-width: 700px) {
+  #wrapper {
+    width: 75%;
+  }
+}
+
+#submitBtn {
+  background-color: #0088cc;
+  color: white;
+  border: none;
+  padding: 4px;
+  border-radius: 3px;
+}
+
+#interviewBtn {
+  background-color: #CD5C5C;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  font-size: 20px;
+  cursor: pointer;
+  margin-top: 20px;
+  padding: 4px;
+}
+
+p {
+  margin-left: 50px;
+  font-size: 20px;
+}
+
+#home {
+  /*background-color: #F0F8FF;*/
+  border: none;
+  border-radius: 10px;
+  margin-left: 50px;
+  margin-right: 50px;
+}

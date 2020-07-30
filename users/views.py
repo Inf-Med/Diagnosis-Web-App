@@ -9,6 +9,8 @@ from .serializers import UserCreateSerializer, UserLoginSerializer
 from rest_framework.decorators import api_view
 from rest_framework.authtoken.models import Token
 
+import json
+
 
 class UserCreateAPIView(CreateAPIView):
     serializer_class = UserCreateSerializer
@@ -29,7 +31,11 @@ class UserLoginAPIView(APIView):
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET'])
-def logout(request, token):
-    Token.objects.filter(key=token).delete()
-    return Response(status=HTTP_200_OK)
+@api_view(['POST'])
+def logout(request):
+    token_string = json.loads(request.body)
+    token_to_delete = Token.objects.filter(key=token_string)
+    if token_to_delete:
+        token_to_delete.delete()
+        return Response(status=HTTP_200_OK)
+    return Response(status=HTTP_400_BAD_REQUEST)

@@ -1,0 +1,17 @@
+.errorMessage {
+    padding: 2px;
+    color: #ff4d4d;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.successMessage {
+    padding: 2px;
+    color: #00cc00;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.popupMessage {
+    display: block;
+}

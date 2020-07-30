@@ -6,7 +6,7 @@ class Quest(models.Model):
     last_name = models.TextField(max_length=30, default="Last name")
     date_of_birth = models.DateField(default="2000-12-12")
     age = models.IntegerField(default='0')
-    pesel = models.IntegerField(blank=True, null=True, default="00000000000")
+    pesel = models.CharField(max_length=11,blank=True, null=True, default="00000000000")
 
     CHOICES = (('male', 'Male'), ('female', 'Female'))
     sex = models.TextField(default="Female")
