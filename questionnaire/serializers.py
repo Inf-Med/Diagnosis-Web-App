@@ -115,14 +115,14 @@ class QuestSerializer2(serializers.ModelSerializer):
         return instance
 
 
-# ToDo refactor
+# refactor
 class SymptomSerializer(serializers.ModelSerializer):
     class Meta:
         model = Symptoms
         fields = ['symptom_cui', 'term']
 
 
-# ToDo refactor
+# refactor
 class DSSerializer(serializers.ModelSerializer):
     class Meta:
         model = DiseasesToSymptoms
