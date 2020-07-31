@@ -20,8 +20,10 @@ class App extends React.Component {
     message: {
       showPopupMessage: false,
       text: "",
-      messageClass: "",
-    }
+      messageClass: ""
+    },
+
+    diagnosisData: []
   }
 
   componentDidMount = () => {
@@ -55,7 +57,11 @@ class App extends React.Component {
   }
 
   setLoginSessionToken = (token) => {
-    this.setState({token})
+    this.setState({token});
+  }
+
+  editDiagnosisDataState = (diagnosisData) => {
+    this.setState({diagnosisData});
   }
 
   sendSessionEndingRequest = () => {
@@ -105,7 +111,7 @@ class App extends React.Component {
                       )}
                     />
                     <Route path="/interview" render={ () => (
-                      <InterviewPage isUserLoggedIn={ this.state.isUserLoggedIn }/>
+                      <InterviewPage isUserLoggedIn={ this.state.isUserLoggedIn } editDiagnosisDataState={ this.editDiagnosisDataState }/>
                       )}
                     />
                     <Route exact path="/" render={ () => (
@@ -113,7 +119,7 @@ class App extends React.Component {
                       )}
                     />
                     <Route exact path="/diagnosis" render={ () => (
-                      <DiagnosisPage isUserLoggedIn={ this.state.isUserLoggedIn }/>
+                      <DiagnosisPage isUserLoggedIn={ this.state.isUserLoggedIn } diagnosisData={ this.state.diagnosisData }/>
                       )}
                     />
                 </BrowserRouter>

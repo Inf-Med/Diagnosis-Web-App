@@ -2,8 +2,8 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.generics import GenericAPIView, ListAPIView
 from rest_framework.mixins import ListModelMixin, CreateModelMixin
-from .models import Quest, Quest2, Symptoms, DiseasesToSymptoms
-from .serializers import QuestSerializer, QuestSerializer2, SymptomSerializer, DSSerializer
+from .models import Quest, Quest2, Symptoms, DiseasesToSymptoms, Diseases
+from .serializers import QuestSerializer, QuestSerializer2, SymptomSerializer, DSSerializer, DiseasesSerializer
 from django.http import JsonResponse
 
 # Create your views here.
@@ -46,4 +46,12 @@ class DtoSTest(ListModelMixin, GenericAPIView):
     def get(self, request):
         ds = DiseasesToSymptoms.objects.all()
         serializer = DSSerializer(ds, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+
+class DiseasesWithNames(ListModelMixin, GenericAPIView):
+
+    def get(self, request):
+        diseases_query = Diseases.objects.all()
+        serializer = DiseasesSerializer(diseases_query, many=True)
         return JsonResponse(serializer.data, safe=False)

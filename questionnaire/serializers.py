@@ -127,3 +127,9 @@ class DSSerializer(serializers.ModelSerializer):
     class Meta:
         model = DiseasesToSymptoms
         fields = ['disease_cui', 'symptom_cui']
+
+
+class DiseasesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Diseases
+        fields = ['disease_cui', 'term']

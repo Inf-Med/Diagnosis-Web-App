@@ -2,6 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import './questionnaire.css'
+import Select from 'react-select';
+import { buildCorrectOptionsForSelectorFromApi } from '../../projectUtilities';
+
 
 class InterviewForm extends React.Component {
 
@@ -13,9 +16,11 @@ class InterviewForm extends React.Component {
             "alcohol": "false",
             "drugs": "",
             "injury": "",
-            "symptoms": "",
             "family_diseases": "",
-            "count":0
+            "count": 0,
+
+            "selectorOptions": [],
+            "selectedSymptoms": [],
           };
 
           this.handleChanged = this.handleChanged.bind(this);
@@ -23,10 +28,26 @@ class InterviewForm extends React.Component {
           this.handleSubmit = this.handleSubmit.bind(this);
 
         }
+
+          componentDidMount = () => {
+            this.fetchSymptomOptionsFromApi();
+          }
+
+          fetchSymptomOptionsFromApi = () => {
+            fetch('http://127.0.0.1:8000/quest/symptoms/')
+                .then(response => response.json())
+                .then(data => this.setState({selectorOptions: buildCorrectOptionsForSelectorFromApi(data)}));
+          }
+
+          handleSelectorChange = (selectedOptions) => {
+            this.setState({
+              selectedSymptoms: selectedOptions
+            })
+          }
+
           handleChanged = (event) => {
               this.setState({ [event.target.name] : event.target.value });
           }
-
 
           onRadioChange = (e) => {
             this.setState({
@@ -36,17 +57,19 @@ class InterviewForm extends React.Component {
           handleSubmit = (e) => {
               e.preventDefault();
               this.state.count = 1;
-              this.props.sendInterviewRequest(this.state);
+              this.props.getMostFittingDiseasesAndSaveThemInAppJsState(this.state.selectedSymptoms);
               this.setState({
                 "pregnancy": "false",
-            "cigarettes": "false",
-            "alcohol": "false",
-            "drugs": "",
-            "injury": "",
-            "symptoms": "",
-            "family_diseases": ""
-            })
-          }
+                "cigarettes": "false",
+                "alcohol": "false",
+                "drugs": "",
+                "injury": "",
+                "family_diseases": "", 
+
+                "selectorOptions": [],
+                "selectedSymptoms": [],
+                })
+              }
 
           render() {
               return (
@@ -160,10 +183,9 @@ onChange={this.onRadioChange}
                 </label>
                 <label>
                 <h2>What are your symptoms?</h2>
-                    <input type="text" name="symptoms"
-                        value={ this.state.symptoms }
-                        onChange={ this.handleChanged }
-                        />
+
+                <Select options={ this.state.selectorOptions } isMulti={ true } onChange={ this.handleSelectorChange } />
+
                 </label>
 
                 <label>
@@ -175,8 +197,8 @@ onChange={this.onRadioChange}
                 </label>
                 <br/>
                 </div>
-          }
-                {this.state.family_diseases !=='' &&  this.state.symptoms !=='' && this.state.injury !=='' && this.state.drugs !=='' &&
+              }
+                {this.state.family_diseases !=='' && this.state.injury !=='' && this.state.drugs !=='' && this.state.selectedSymptoms !== null &&
                 <button onClick={ this.handleSubmit }>Submit</button>
               }
               {this.state.count ===1 &&
@@ -192,10 +214,7 @@ onChange={this.onRadioChange}
         )
     }
 }
-ReactDOM.render(
-    <InterviewForm />,
-    document.getElementById('root')
-  );
+
 
 export default InterviewForm;
 

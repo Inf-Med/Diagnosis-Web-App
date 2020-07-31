@@ -1,5 +1,5 @@
 import React from 'react';
-import './Forms/questionnaire.css'
+import './diagnosisPage.css';
 
 
 class DiagnosisPage extends React.Component {
@@ -9,71 +9,99 @@ class DiagnosisPage extends React.Component {
         "diagnosis": []
       };
     }
-    componentDidMount() {
-        //fetch('http://jsonplaceholder.typicode.com/users')
-        fetch('http://fizyka.umk.pl/~291605/test/diseases.json')
-        //fetch('nasz')
-        .then(res => res.json())
-        .then((data) => {
-          this.setState({ diagnosis: data })
-        })
-        .catch(console.log)
-      }
+
+    listSymptoms = (symptoms) => {
+        return symptoms.map((symptom) =>
+            <li>{ symptom }</li>);
+    }
+
+    listDiseases = (diseases) => {
+        return diseases.map((disease) =>
+            <li>{ disease.disease_cui }</li>);
+    }
+
+    getFirstMatch = () => {
+        let dataToDisplay = this.props.diagnosisData[this.props.diagnosisData.length - 1];
+        return <div id="wrapper">
+                    <h2 className="matchNum">First match</h2>
+                    <br/>
+                    <h3>Condition name:</h3>
+                    <br/>
+                    { dataToDisplay.disease_cui }
+                    <br/>
+                    <h3>Condition symptoms:</h3>
+                    <br/>
+                    <ul>
+                        { this.listSymptoms(dataToDisplay.symptoms) }
+                    </ul>
+                </div>
+    }
+
+    getSecondMatch = () => {
+        let dataToDisplay = this.props.diagnosisData[this.props.diagnosisData.length - 2];
+        return <div id="wrapper">
+                    <h2 className="matchNum">Second match</h2>
+                    <br/>
+                    <h3>Condition name:</h3>
+                    <br/>
+                    { dataToDisplay.disease_cui }
+                    <br/>
+                    <h3>Condition symptoms:</h3>
+                    <br/>
+                    <ul>
+                        { this.listSymptoms(dataToDisplay.symptoms) }
+                    </ul>
+                </div>
+    }
+
+    getThirdMatch = () => {
+        let dataToDisplay = this.props.diagnosisData[this.props.diagnosisData.length - 3];
+        return <div id="wrapper">
+                    <h2 className="matchNum">Third match</h2>
+                    <br/>
+                    <h3>Condition name:</h3>
+                    <br/>
+                    { dataToDisplay.disease_cui }
+                    <br/>
+                    <h3>Condition symptoms:</h3>
+                    <br/>
+                    <ul>
+                        { this.listSymptoms(dataToDisplay.symptoms) }
+                    </ul>
+                </div>
+    }
+
+    getRestOfTheMatches = () => {
+        let dataToDisplay = this.props.diagnosisData.slice(0, this.props.diagnosisData.length - 3);
+        return <div id="wrapper">
+                    <h2 className="matchNum">Other possible diseases</h2>
+                    <br/>
+                    <ul>
+                        { this.listDiseases(dataToDisplay) }
+                    </ul>
+                </div>
+    }
 
     render() {
+        let firstMatch, secondMatch, thirdMatch, restOfTheMatches;
+        if (this.props.diagnosisData.length) {
+            firstMatch = this.getFirstMatch();
+            secondMatch = this.getSecondMatch();
+            thirdMatch = this.getThirdMatch();
+            restOfTheMatches = this.getRestOfTheMatches();
+        }
+
         return (
-            <div className="form-style-5">
-                <h1>Conditions that match your symptoms</h1>
-                <h2>First match</h2>
-                <h3>Condition name:</h3>
-                    {this.state.diagnosis.map(diagnose =>
-                    <div key={diagnose.number_of_symptoms}>
-                    {diagnose.term}
-                    </div>
-                    )}
-                    <br/>
-                    <h3>Condition symptoms:</h3>
-                    <br/>
-                    <h3>Condition description:</h3>
-                    {this.state.diagnosis.map(diagnose =>
-                    <div key={diagnose.number_of_symptoms}>
-                    {diagnose.disease_cui}
-                    </div>
-                    )}
-                    <br/>
-                <h2>Second match</h2>
-                <h3>Condition name:</h3>
-                    {this.state.diagnosis.map(diagnose =>
-                    <div key={diagnose.number_of_symptoms}>
-                    {diagnose.term}
-                    </div>
-                    )}
-                    <br/>
-                    <h3>Condition symptoms:</h3>
-                    <br/>
-                    <h3>Condition description:</h3>
-                    {this.state.diagnosis.map(diagnose =>
-                    <div key={diagnose.number_of_symptoms}>
-                    {diagnose.disease_cui}
-                    </div>
-                    )}
-                    <br/>
-                <h2>Third match</h2>
-                <h3>Condition name:</h3>
-                    {this.state.diagnosis.map(diagnose =>
-                    <div key={diagnose.number_of_symptoms}>
-                    {diagnose.term}
-                    </div>
-                    )}
-                    <br/>
-                <h3>Condition symptoms:</h3>
-                <br/>
-                <h3>Condition description:</h3>
-                    {this.state.diagnosis.map(diagnose =>
-                    <div key={diagnose.number_of_symptoms}>
-                    {diagnose.disease_cui}
-                    </div>
-                    )}
+            <div id="content">
+                <div id="wrapper">
+                    <h1>Conditions that match your symptoms</h1>
+                </div>
+
+                { firstMatch }
+                { secondMatch }
+                { thirdMatch }
+                { restOfTheMatches }
+
             </div>
         )
     }
