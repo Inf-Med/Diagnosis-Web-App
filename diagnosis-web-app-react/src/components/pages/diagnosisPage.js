@@ -1,5 +1,6 @@
 import React from 'react';
 import './diagnosisPage.css';
+import { Redirect } from 'react-router-dom';
 
 
 class DiagnosisPage extends React.Component {
@@ -91,18 +92,25 @@ class DiagnosisPage extends React.Component {
             restOfTheMatches = this.getRestOfTheMatches();
         }
 
+        let isUserloggedIn = this.props.isUserLoggedIn;
+
         return (
+
+            isUserloggedIn ? (
             <div id="content">
                 <div id="wrapper">
                     <h1>Conditions that match your symptoms</h1>
                 </div>
 
-                { firstMatch }
-                { secondMatch }
-                { thirdMatch }
-                { restOfTheMatches }
+                    { firstMatch }
+                    { secondMatch }
+                    { thirdMatch }
+                    { restOfTheMatches }
 
             </div>
+            ) : (
+                    <Redirect to="/"></Redirect>
+                )
         )
     }
 
