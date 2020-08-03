@@ -87,9 +87,12 @@ class DiagnosisPage extends React.Component {
         let firstMatch, secondMatch, thirdMatch, restOfTheMatches;
         if (this.props.diagnosisData.length) {
             firstMatch = this.getFirstMatch();
-            secondMatch = this.getSecondMatch();
-            thirdMatch = this.getThirdMatch();
-            restOfTheMatches = this.getRestOfTheMatches();
+            if (this.props.diagnosisData.length > 1)
+                secondMatch = this.getSecondMatch();
+            if (this.props.diagnosisData.length > 2)
+                thirdMatch = this.getThirdMatch();
+            if (this.props.diagnosisData.length > 3)
+                restOfTheMatches = this.getRestOfTheMatches();
         }
 
         let isUserloggedIn = this.props.isUserLoggedIn;

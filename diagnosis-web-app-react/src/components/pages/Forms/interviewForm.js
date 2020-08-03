@@ -199,7 +199,8 @@ class InterviewForm extends React.Component {
                 <br/>
                 </div>
               }
-                {this.state.family_diseases !=='' && this.state.injury !=='' && this.state.drugs !=='' && this.state.selectedSymptoms !== null &&
+                {this.state.family_diseases !=='' && this.state.injury !=='' && this.state.drugs !==''
+                && this.state.selectedSymptoms !== null && this.state.selectorOptions !== null &&
                 <button onClick={ this.handleSubmit }>Submit</button>
               }
               {this.state.count ===1 &&
@@ -218,4 +219,3 @@ class InterviewForm extends React.Component {
 
 
 export default InterviewForm;
-
