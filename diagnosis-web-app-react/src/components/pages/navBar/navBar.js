@@ -1,7 +1,6 @@
 import React from 'react';
 import {NavLink, withRouter } from 'react-router-dom';
 import './navBar.css';
-import AlertMessage from '../../alertMessage/alertMessage';
 import {getCookie} from '../../projectUtilities';
 
 

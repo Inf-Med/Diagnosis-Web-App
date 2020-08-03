@@ -32,7 +32,7 @@ export let buildCorrectOptionsForSelectorFromApi = (data) => {
 export let getAllSymptomsForDesease = (disease, diseasesToSymptoms) => {
     let output = [];
     for (let record of diseasesToSymptoms)
-        if (record.disease_cui == disease) output.push(record.symptom_cui);
+        if (record.disease_cui === disease) output.push(record.symptom_cui);
     return output;
 }
 
@@ -40,7 +40,7 @@ export let getAllSymptomsForDesease = (disease, diseasesToSymptoms) => {
 let getNameOfRecord = (data, nameToSearch) => {
     let output;
     for (let record of data)
-        if (record.symptom_cui == nameToSearch || record.disease_cui == nameToSearch)
+        if (record.symptom_cui === nameToSearch || record.disease_cui === nameToSearch)
             output = record.term;
     return output;
 }
@@ -56,4 +56,11 @@ export let getHumanReadableNames = (data, dataForSearchingDiseaseName, dataForSe
         record.symptoms = newSymptoms;
     }
     return data;
+}
+
+
+export let getNamesOfSymptoms = (data) => {
+    let output = [];
+    for (let record of data) output.push(record.label);
+    return output;
 }

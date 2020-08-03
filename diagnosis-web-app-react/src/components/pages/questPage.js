@@ -16,11 +16,6 @@ class QuestPage extends React.Component {
           body: JSON.stringify(questData)
         })
         .then( data => data.json())
-        .then(
-          data => {
-            console.log(data.token);
-          }
-        )
         .catch( error => console.error(error))
     }
 

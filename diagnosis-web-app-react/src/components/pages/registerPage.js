@@ -1,6 +1,5 @@
 import React from 'react';
 import RegisterForm from './Forms/registerForm';
-import AlertMessage from '../alertMessage/alertMessage';
 import {getCookie} from '../projectUtilities';
 import { Redirect } from 'react-router-dom';
 

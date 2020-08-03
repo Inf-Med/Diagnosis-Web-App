@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React from 'react';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import './questionnaire.css'
@@ -106,7 +106,9 @@ class QuestForm extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        this.state.count = 1;
+        this.setState({
+          "count": 1,
+        })
         this.props.sendQuestRequest(this.state);
         this.setState({
           "first_name": "",
@@ -201,7 +203,7 @@ class QuestForm extends React.Component {
 
         <div>
                 <label>
-                    <h3>Pesel:</h3>
+                    <h3>PESEL:</h3>
                     <input type="text" name="pesel"
                         value={ this.state.pesel }
                         onChange={ this.PeselChanged }
@@ -229,7 +231,7 @@ class QuestForm extends React.Component {
               </Link>
               </div>
               }
-            </form> 
+            </form>
 
         )
     }

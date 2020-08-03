@@ -1,6 +1,5 @@
 import React from 'react';
 import LoginForm from './Forms/loginForm';
-import AlertMessage from '../alertMessage/alertMessage';
 import {getCookie} from '../projectUtilities';
 import { Redirect } from 'react-router-dom';
 

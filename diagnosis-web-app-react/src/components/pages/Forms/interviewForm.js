@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import './questionnaire.css'
 import Select from 'react-select';
@@ -54,17 +53,19 @@ class InterviewForm extends React.Component {
                 [e.target.name]: e.target.value
             });
           }
+
           handleSubmit = (e) => {
               e.preventDefault();
-              this.state.count = 1;
               this.props.getMostFittingDiseasesAndSaveThemInAppJsState(this.state.selectedSymptoms);
+              this.props.sendInterview(this.state);
               this.setState({
                 "pregnancy": "false",
                 "cigarettes": "false",
                 "alcohol": "false",
                 "drugs": "",
                 "injury": "",
-                "family_diseases": "", 
+                "family_diseases": "",
+                "count": 1,
 
                 "selectorOptions": [],
                 "selectedSymptoms": [],
@@ -78,92 +79,92 @@ class InterviewForm extends React.Component {
                     <div>
                        <h2>Are you pregnant:</h2>
                        <br/>
-<ul>
-  <li>
-    <label>
-      <input
-        name="pregnancy"
-        type="radio"
-        value="false"
-        checked={this.state.pregnancy === "false"}
-        onChange={this.onRadioChange}
-      />
-      <span>No</span>
-    </label>
-  </li>
-  <li>
-    <label>
-      <input
-        name="pregnancy"
-        type="radio"
-        value="true"
-        checked={this.state.pregnancy === "true"}
-        onChange={this.onRadioChange}
-      />
-      <span>Yes</span>
-    </label>
-  </li>
-</ul>
+            <ul>
+              <li>
+                <label>
+                  <input
+                    name="pregnancy"
+                    type="radio"
+                    value="false"
+                    checked={this.state.pregnancy === "false"}
+                    onChange={this.onRadioChange}
+                  />
+                  <span>No</span>
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input
+                    name="pregnancy"
+                    type="radio"
+                    value="true"
+                    checked={this.state.pregnancy === "true"}
+                    onChange={this.onRadioChange}
+                  />
+                  <span>Yes</span>
+                </label>
+              </li>
+            </ul>
                 <br/>
 
                 <h2>Do you smoke?</h2>
                 <br/>
-<ul>
-  <li>
-    <label>
-      <input
-        name="cigarettes"
-        type="radio"
-        value="false"
-        checked={this.state.cigarettes === "false"}
-        onChange={this.onRadioChange}
-      />
-      <span>No</span>
-    </label>
-  </li>
-  <li>
-    <label>
-      <input
-        name="cigarettes"
-        type="radio"
-        value="true"
-        checked={this.state.cigarettes === "true"}
-        onChange={this.onRadioChange}
-      />
-      <span>Yes</span>
-    </label>
-  </li>
-</ul>
-<br/>
+            <ul>
+              <li>
+                <label>
+                  <input
+                    name="cigarettes"
+                    type="radio"
+                    value="false"
+                    checked={this.state.cigarettes === "false"}
+                    onChange={this.onRadioChange}
+                  />
+                  <span>No</span>
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input
+                    name="cigarettes"
+                    type="radio"
+                    value="true"
+                    checked={this.state.cigarettes === "true"}
+                    onChange={this.onRadioChange}
+                  />
+                  <span>Yes</span>
+                </label>
+              </li>
+            </ul>
+            <br/>
 
-<h2>Do you drink alcohol quite often?</h2>
-<br/>
-<ul>
-<li>
-<label>
-<input
-name="alcohol"
-type="radio"
-value="false"
-checked={this.state.alcohol === "false"}
-onChange={this.onRadioChange}
-/>
-<span>No</span>
-</label>
-</li>
-<li>
-<label>
-<input
-name="alcohol"
-type="radio"
-value="true"
-checked={this.state.alcohol === "true"}
-onChange={this.onRadioChange}
-/>
-<span>Yes</span>
-</label>
-</li>
-</ul>
+            <h2>Do you drink alcohol quite often?</h2>
+            <br/>
+            <ul>
+            <li>
+            <label>
+            <input
+            name="alcohol"
+            type="radio"
+            value="false"
+            checked={this.state.alcohol === "false"}
+            onChange={this.onRadioChange}
+            />
+            <span>No</span>
+            </label>
+            </li>
+            <li>
+            <label>
+            <input
+            name="alcohol"
+            type="radio"
+            value="true"
+            checked={this.state.alcohol === "true"}
+            onChange={this.onRadioChange}
+            />
+            <span>Yes</span>
+            </label>
+            </li>
+            </ul>
                 <br/>
 
                 <label>

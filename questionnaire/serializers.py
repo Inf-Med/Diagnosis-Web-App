@@ -1,13 +1,9 @@
 from rest_framework import serializers
-
 from .models import *
 
 
 class QuestSerializer(serializers.ModelSerializer):
-    Sex_choices = [
-        ("F", "Female"),
-        ("M", "Male")
-    ]
+
     first_name = serializers.CharField(max_length=100, default="First_name")
     last_name = serializers.CharField(max_length=100, default="Last_name")
     age = serializers.IntegerField(default="0")
@@ -55,17 +51,7 @@ class QuestSerializer(serializers.ModelSerializer):
 
 
 class QuestSerializer2(serializers.ModelSerializer):
-    Diseases_choices = (
-        ("1", "Diabetes"),
-        ("2", "Huntington's chorea"),
-        ("3", "Cystic fibrosis")
-    )
-
-    Symptoms_choices = (
-        ("Cough", "Cough"),
-        ("Fever", "Fever"),
-        ("Headache", "Headache")
-    )
+    
     family_diseases = serializers.CharField(required=False, default=None)
     symptoms = serializers.CharField(required=False, default=None)
     pregnancy = serializers.BooleanField()
