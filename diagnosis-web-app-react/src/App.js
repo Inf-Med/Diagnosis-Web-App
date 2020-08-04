@@ -16,6 +16,7 @@ class App extends React.Component {
 
   state = {
     token: "",
+    username: "",
     isUserLoggedIn: false,
     message: {
       showPopupMessage: false,
@@ -56,8 +57,8 @@ class App extends React.Component {
     this.setState({isUserLoggedIn: isLoggedIn});
   }
 
-  setLoginSessionToken = (token) => {
-    this.setState({token});
+  setLoginSessionTokenAndUsername = (token, username) => {
+    this.setState({token, username});
   }
 
   editDiagnosisDataState = (diagnosisData) => {
@@ -85,6 +86,7 @@ class App extends React.Component {
                 <BrowserRouter>
                     <Navbar
                       token={ this.state.token }
+                      username={ this.state.username }
                       isUserLoggedIn={ this.state.isUserLoggedIn }
                       changeUserState={ this.changeIsUserLoggedInState }
                       editAlertMessageState={ this.editAlertMessageState }
@@ -92,7 +94,7 @@ class App extends React.Component {
                     { alertMessage }
                     <Route path="/login" render={ () => (
                       <LoginPage
-                        setLoginSessionToken={ this.setLoginSessionToken }
+                        setLoginSessionTokenAndUsername={ this.setLoginSessionTokenAndUsername }
                         changeUserState={ this.changeIsUserLoggedInState }
                         isUserLoggedIn={ this.state.isUserLoggedIn }
                         editAlertMessageState={ this.editAlertMessageState }

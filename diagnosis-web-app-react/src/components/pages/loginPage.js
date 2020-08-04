@@ -29,7 +29,7 @@ class LoginPage extends React.Component {
         })
         .then(
           data => {
-            this.props.setLoginSessionToken(data.token);
+            this.props.setLoginSessionTokenAndUsername(data.token, data.username);
             localStorage.setItem('token', data.token);
             sessionStorage.setItem('token', data.token);
           }

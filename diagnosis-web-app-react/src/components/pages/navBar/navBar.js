@@ -25,7 +25,6 @@ class Navbar extends React.Component {
         .then(localStorage.clear())
         .then(sessionStorage.clear())
         .catch( error => console.error(error))
-
     }
 
     showMenubar = () => {
@@ -48,6 +47,7 @@ class Navbar extends React.Component {
                         <li><NavLink to="/" className="menuString">Home</NavLink></li>
                         <li><NavLink to="/quest" className="menuString">Interview</NavLink></li>
                         <li><NavLink to="/login" className="menuString" onClick={ this.logout }>Logout</NavLink></li>
+                        <li><p className="navbar-text">Logged in as:  { this.props.username }</p></li>
                     </ul>
             else
                 suitedNavbarElements =

@@ -101,3 +101,7 @@ nav ul li .menuString {
         color: #0082e6
     }
 }
+
+.navbar-text {
+    color: black;
+}
