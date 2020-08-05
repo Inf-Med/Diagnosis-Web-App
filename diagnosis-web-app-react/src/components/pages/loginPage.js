@@ -22,7 +22,7 @@ class LoginPage extends React.Component {
         .then( (data) => {
           if (data.status !== 200) this.props.editAlertMessageState(true, "Login failed. Please, try again.", "errorMessage");
           else {
-            this.props.editAlertMessageState(true, "Login successfull.", "successMessage");
+            this.props.editAlertMessageState(true, "Login successful.", "successMessage");
             this.props.changeUserState();
           }
           return data.json();

@@ -90,6 +90,7 @@ class RegisterForm extends React.Component {
 
     render() {
         return (
+          <form id="register">
             <div>
                 <div className="input-data">
                     <label><strong>Username:</strong></label>
@@ -140,6 +141,7 @@ class RegisterForm extends React.Component {
                 <button id="submitBtn" onClick={this.handleSubmit}>Register</button>
                 }
             </div>
+            </form>
         )
     }
 
