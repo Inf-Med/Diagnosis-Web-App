@@ -15,6 +15,7 @@ import AlertMessage from './components/alertMessage/alertMessage';
 class App extends React.Component {
 
   state = {
+    userId: "",
     token: "",
     username: "",
     isUserLoggedIn: false,
@@ -57,8 +58,8 @@ class App extends React.Component {
     this.setState({isUserLoggedIn: isLoggedIn});
   }
 
-  setLoginSessionTokenAndUsername = (token, username) => {
-    this.setState({token, username});
+  setLoginSessionTokenAndUsername = (token, username, userId) => {
+    this.setState({token, username, userId});
   }
 
   editDiagnosisDataState = (diagnosisData) => {
@@ -109,11 +110,18 @@ class App extends React.Component {
                       )}
                     />
                     <Route path="/quest" render={ () => (
-                      <QuestPage isUserLoggedIn={ this.state.isUserLoggedIn }/>
+                      <QuestPage
+                        isUserLoggedIn={ this.state.isUserLoggedIn }
+                        userId={ this.state.userId }
+                      />
                       )}
                     />
                     <Route path="/interview" render={ () => (
-                      <InterviewPage isUserLoggedIn={ this.state.isUserLoggedIn } editDiagnosisDataState={ this.editDiagnosisDataState }/>
+                      <InterviewPage
+                        isUserLoggedIn={ this.state.isUserLoggedIn }
+                        editDiagnosisDataState={ this.editDiagnosisDataState }
+                        userId={ this.state.userId }
+                      />
                       )}
                     />
                     <Route exact path="/" render={ () => (

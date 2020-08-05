@@ -27,6 +27,10 @@ class UserLoginAPIView(APIView):
         serializer = UserLoginSerializer(data=data)
         if serializer.is_valid(raise_exception=True):
             new_data = serializer.data
+            new_data['user_id'] = User.objects.filter(
+                username=new_data['username'],
+                email=new_data['email'],
+            ).first().id
             return Response(new_data, status=HTTP_200_OK)
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 

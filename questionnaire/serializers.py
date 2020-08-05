@@ -4,6 +4,7 @@ from .models import *
 
 class QuestSerializer(serializers.ModelSerializer):
 
+    user_id = serializers.IntegerField(default="0")
     first_name = serializers.CharField(max_length=100, default="First_name")
     last_name = serializers.CharField(max_length=100, default="Last_name")
     age = serializers.IntegerField(default="0")
@@ -14,6 +15,7 @@ class QuestSerializer(serializers.ModelSerializer):
     class Meta:
         model = Quest
         fields = [
+            'user_id',
             'first_name',
             'last_name',
             'age',
@@ -23,6 +25,7 @@ class QuestSerializer(serializers.ModelSerializer):
         ]
 
     def create(self, validated_data):
+        user_id = validated_data['user_id']
         first_name = validated_data['first_name']
         last_name = validated_data['last_name']
         age = validated_data['age']
@@ -31,6 +34,7 @@ class QuestSerializer(serializers.ModelSerializer):
         sex = validated_data['sex']
 
         quest_obj = Quest(
+            user_id=user_id,
             first_name=first_name,
             last_name=last_name,
             age=age,
@@ -51,7 +55,8 @@ class QuestSerializer(serializers.ModelSerializer):
 
 
 class QuestSerializer2(serializers.ModelSerializer):
-    
+
+    user_id = serializers.IntegerField(default="0")
     family_diseases = serializers.CharField(required=False, default=None)
     symptoms = serializers.CharField(required=False, default=None)
     pregnancy = serializers.BooleanField()
@@ -63,6 +68,7 @@ class QuestSerializer2(serializers.ModelSerializer):
     class Meta:
         model = Quest2
         fields = [
+            'user_id',
             'pregnancy',
             'cigarettes',
             'alcohol',
@@ -73,6 +79,7 @@ class QuestSerializer2(serializers.ModelSerializer):
         ]
 
     def create(self, validated_data):
+        user_id = validated_data['user_id']
         pregnancy = validated_data['pregnancy']
         cigarettes = validated_data['cigarettes']
         alcohol = validated_data['alcohol']
@@ -82,6 +89,7 @@ class QuestSerializer2(serializers.ModelSerializer):
         family_diseases = validated_data['family_diseases']
 
         quest_obj2 = Quest2(
+            user_id=user_id,
             pregnancy=pregnancy,
             cigarettes=cigarettes,
             alcohol=alcohol,

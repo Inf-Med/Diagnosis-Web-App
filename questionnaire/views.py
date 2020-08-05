@@ -1,6 +1,4 @@
-from django.shortcuts import render
-from rest_framework.response import Response
-from rest_framework.generics import GenericAPIView, ListAPIView
+from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import ListModelMixin, CreateModelMixin
 from .models import Quest, Quest2, Symptoms, DiseasesToSymptoms, Diseases
 from .serializers import QuestSerializer, QuestSerializer2, SymptomSerializer, DSSerializer, DiseasesSerializer

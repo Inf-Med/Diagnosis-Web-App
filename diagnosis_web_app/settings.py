@@ -92,7 +92,9 @@ DATABASES = {
         'USER': 'rvkvbamh',
         'PASSWORD': 'E8XtXz4JIiRX7_7uqYKwBcF79-oQU8bY',
         'HOST': 'balarama.db.elephantsql.com',
-        'PORT': '5432'
+        'PORT': '5432',
+        #'ENGINE': 'django.db.backends.sqlite3',
+        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
     }
 }
 

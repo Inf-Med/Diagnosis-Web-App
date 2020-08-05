@@ -34,6 +34,7 @@ class InterviewPage extends React.Component {
 
     interview = (interviewData) => {
         const requestBody = {
+            user_id: this.props.userId,
             pregnancy: interviewData.pregnancy,
             cigarettes: interviewData.cigarettes,
             alcohol: interviewData.alcohol,
