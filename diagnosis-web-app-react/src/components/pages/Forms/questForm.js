@@ -21,7 +21,6 @@ class QuestForm extends React.Component {
       "peselError": "",
       "peselError2": "",
       "sex": 'f',
-      "count": 0,
     };
 
     this.onRadioChange = this.onRadioChange.bind(this);
@@ -108,9 +107,6 @@ class QuestForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.setState({
-      "count": 1,
-    })
     this.props.sendQuestRequest(this.state);
     this.setState({
       "first_name": "",
@@ -125,7 +121,6 @@ class QuestForm extends React.Component {
   render() {
     return (
       <form id="quest" className="form-style-5">
-        {this.state.count !== 1 &&
           <div>
             <div>
               <label>
@@ -219,26 +214,14 @@ class QuestForm extends React.Component {
               <br />
             </div>
           </div>
-        }
         {this.state.pesel !== '' && this.state.date_of_birth !== '' && this.state.first_name !== '' &&
           this.state.last_name !== '' && !this.state.peselError && !this.state.peselError2 && !this.state.ageError
           && !this.state.last_nameError && !this.state.last_nameError2 && !this.state.fiest_nameError2 &&
           !this.state.first_nameError && !this.state.dateError && !this.state.dateError2 && !this.state.dateError3 &&
           <button onClick={this.handleSubmit}>
-            <Link to="/interview">
               Submit
-            </Link>
           </button>
         }
-        {this.state.count ===1 &&
-              <div>
-              <Link to="/interview">
-                  <button >
-                      Next Page
-                  </button>
-              </Link>
-              </div>
-              }
       </form>
 
     )

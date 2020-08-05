@@ -16,15 +16,20 @@ class QuestPage extends React.Component {
           },
           body: JSON.stringify(questData)
         })
-        .then( data => data.json())
+        .then( data => {
+          data.json();
+          this.props.submitstatus()
+        })
         .catch( error => console.error(error))
     }
 
     render() {
       let quest;
         if (this.props.isUserLoggedIn === true)
+          if(this.props.isSubmit === false)  
             quest = <QuestForm sendQuestRequest={ this.quest }/>
-
+          else
+            quest = <Redirect to="/interview"></Redirect>
         else
             quest = <Redirect to="/login"></Redirect>
 

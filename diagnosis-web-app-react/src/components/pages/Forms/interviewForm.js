@@ -16,7 +16,6 @@ class InterviewForm extends React.Component {
       "drugs": "",
       "injury": "",
       "family_diseases": "",
-      "count": 0,
 
       "selectorOptions": [],
       "selectedSymptoms": [],
@@ -65,7 +64,6 @@ class InterviewForm extends React.Component {
       "drugs": "",
       "injury": "",
       "family_diseases": "",
-      "count": 1,
 
       "selectorOptions": [],
       "selectedSymptoms": [],
@@ -75,7 +73,6 @@ class InterviewForm extends React.Component {
   render() {
     return (
       <form id="interview" className="form-style-5">
-        {this.state.count !== 1 &&
           <div>
             <h2>Are you pregnant:</h2>
             <br />
@@ -198,27 +195,15 @@ class InterviewForm extends React.Component {
 
             <br />
           </div>
-        }
 
 
         {this.state.family_diseases !== '' && this.state.injury !== '' && this.state.drugs !== ''
           && this.state.selectedSymptoms.length > 0 &&
 
           <button onClick={this.handleSubmit}>
-            <Link to="/diagnosis">
               Submit
-            </Link>
           </button>
         }
-
-        {this.state.count === 1 &&
-          <div>
-            <Link to="/diagnosis">
-              <button>Next Page</button>
-            </Link>
-          </div>
-        }
-
       </form>
     )
   }

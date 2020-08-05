@@ -19,6 +19,8 @@ class App extends React.Component {
     token: "",
     username: "",
     isUserLoggedIn: false,
+    isSubmit:false,
+    isEnd:false,
     message: {
       showPopupMessage: false,
       text: "",
@@ -57,7 +59,14 @@ class App extends React.Component {
     let isLoggedIn = !this.state.isUserLoggedIn;
     this.setState({isUserLoggedIn: isLoggedIn});
   }
-
+  submitData = () => {
+    var doSubmit = !this.state.isSubmit;
+    this.setState({isSubmit: doSubmit});
+  }
+  endInterview = () => {
+    var endStatus = !this.state.isEnd;
+    this.setState({isEnd: endStatus});
+  }
   setLoginSessionTokenAndUsername = (token, username, userId) => {
     this.setState({token, username, userId});
   }
@@ -113,6 +122,8 @@ class App extends React.Component {
                       <QuestPage
                         isUserLoggedIn={ this.state.isUserLoggedIn }
                         userId={ this.state.userId }
+                        isSubmit={this.state.isSubmit}
+                        submitstatus={this.submitData}
                       />
                       )}
                     />
@@ -121,6 +132,8 @@ class App extends React.Component {
                         isUserLoggedIn={ this.state.isUserLoggedIn }
                         editDiagnosisDataState={ this.editDiagnosisDataState }
                         userId={ this.state.userId }
+                        isEnd={this.state.isEnd}
+                        endStatus={this.endInterview}
                       />
                       )}
                     />

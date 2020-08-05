@@ -52,7 +52,9 @@ class InterviewPage extends React.Component {
             },
             body: JSON.stringify(requestBody)
           })
-          .then( data => data.json())
+          .then( data => {
+            data.json();
+           this.props.endStatus()})
           .catch( error => console.error(error))
     }
 
@@ -90,8 +92,11 @@ class InterviewPage extends React.Component {
 
         let maybeRedirect;
         if (this.props.isUserLoggedIn === true)
-            maybeRedirect = <InterviewForm getMostFittingDiseasesAndSaveThemInAppJsState={ this.getMostFittingDiseasesAndSaveThemInAppJsState }
-            sendInterview={this.interview}/>
+            if(this.props.isEnd === false) 
+                maybeRedirect = <InterviewForm getMostFittingDiseasesAndSaveThemInAppJsState={ this.getMostFittingDiseasesAndSaveThemInAppJsState }
+                sendInterview={this.interview}/>
+            else
+                maybeRedirect = <Redirect to="/diagnosis"></Redirect>
         else
             maybeRedirect = <Redirect to="/login"></Redirect>
         return (
