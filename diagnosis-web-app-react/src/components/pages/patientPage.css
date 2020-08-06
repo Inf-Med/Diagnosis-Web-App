@@ -1,0 +1,22 @@
+@import 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css';
+
+nav ul li {
+  display: inline;
+  list-style-type: none;
+  text-align: center;
+}
+nav ul li a {
+  margin: 50px 0;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+}
+nav ul li a:hover {
+  color: white;
+  text-decoration: none;
+}
+table {
+  margin-top: 50px;
+}
+
+

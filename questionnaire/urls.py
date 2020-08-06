@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import QuestAPIView, QuestAPIView2, SymptomsTest, DtoSTest, DiseasesWithNames
+from .views import *
 
 urlpatterns = [
     path('quest/', QuestAPIView.as_view(), name='questionnaire'),
@@ -7,6 +7,8 @@ urlpatterns = [
     # Test urls
     path('symptoms/', SymptomsTest.as_view(), name='test'),
     path('diseases-to-symptoms/', DtoSTest.as_view(), name='test2'),
+    path('diseases/', DiseasesWithNames.as_view(), name='diseases'),
+    path('patients/', PatientsToDisplay.as_view(), name='patients')
+    # path('test/', TestForClassification.as_view(), name='test')
 
-    path('diseases/', DiseasesWithNames.as_view(), name='diseases')
 ]

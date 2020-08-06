@@ -3,6 +3,10 @@ from rest_framework.mixins import ListModelMixin, CreateModelMixin
 from .models import Quest, Quest2, Symptoms, DiseasesToSymptoms, Diseases
 from .serializers import QuestSerializer, QuestSerializer2, SymptomSerializer, DSSerializer, DiseasesSerializer
 from django.http import JsonResponse
+import json, os, sys, re
+from django.core.exceptions import ObjectDoesNotExist
+from .bayes_matching import BayesMatching
+
 
 # Create your views here.
 
@@ -53,3 +57,20 @@ class DiseasesWithNames(ListModelMixin, GenericAPIView):
         diseases_query = Diseases.objects.all()
         serializer = DiseasesSerializer(diseases_query, many=True)
         return JsonResponse(serializer.data, safe=False)
+
+
+class PatientsToDisplay(ListModelMixin, GenericAPIView):
+    def get(self, request):
+        patients = Quest.objects.all()
+        serializer = QuestSerializer(patients, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+
+class TestForClassification(ListModelMixin, GenericAPIView):
+
+    def get(self, request):
+        result = BayesMatching.make_classification("Macular eruption, Spots on skin (disorder), Erythematous condition")
+        return JsonResponse(result.data, safe=False)
+
+
+

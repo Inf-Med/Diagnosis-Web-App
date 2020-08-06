@@ -11,22 +11,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.CreateModel(
-            name='Diseases',
-            fields=[
-                ('disease_cui', models.CharField(max_length=20, primary_key=True, serialize=False)),
-                ('term', models.TextField(null=True)),
-                ('number_of_symptoms', models.IntegerField(null=True)),
-            ],
-        ),
-        migrations.CreateModel(
-            name='Symptoms',
-            fields=[
-                ('symptom_cui', models.CharField(max_length=20, primary_key=True, serialize=False)),
-                ('term', models.CharField(max_length=200, null=True)),
-                ('number_of_diseases', models.IntegerField(null=True)),
-            ],
-        ),
         migrations.AlterField(
             model_name='quest',
             name='first_name',
@@ -67,12 +51,5 @@ class Migration(migrations.Migration):
             name='symptoms',
             field=models.CharField(default='No symptoms', max_length=1000),
         ),
-        migrations.CreateModel(
-            name='DiseasesToSymptoms',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('disease_cui', models.ForeignKey(db_column='disease_cui', on_delete=django.db.models.deletion.CASCADE, to='questionnaire.Diseases')),
-                ('symptom_cui', models.ForeignKey(db_column='symptom_cui', on_delete=django.db.models.deletion.CASCADE, to='questionnaire.Symptoms')),
-            ],
-        ),
+
     ]

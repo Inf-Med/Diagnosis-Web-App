@@ -8,6 +8,7 @@ import QuestPage from './components/pages/questPage';
 import InterviewPage from './components/pages/interviewPage';
 import HomePage from './components/pages/homePage';
 import DiagnosisPage from './components/pages/diagnosisPage';
+import PatientPage from './components/pages/patientPage';
 import Navbar from './components/pages/navBar/navBar';
 import AlertMessage from './components/alertMessage/alertMessage';
 
@@ -27,7 +28,8 @@ class App extends React.Component {
       messageClass: ""
     },
 
-    diagnosisData: []
+    diagnosisData: [],
+    patients: []
   }
 
   componentDidMount = () => {
@@ -151,6 +153,14 @@ class App extends React.Component {
                     />
                     <Route exact path="/diagnosis" render={ () => (
                       <DiagnosisPage isUserLoggedIn={ this.state.isUserLoggedIn } diagnosisData={ this.state.diagnosisData }/>
+                      )}
+                    />
+                    <Route exact path="/register" render={ () => (
+                      <DiagnosisPage isUserLoggedIn={ this.state.isUserLoggedIn } patients={ this.state.patients }/>
+                      )}
+                    />
+                    <Route exact path="/patient-register" render={ () => (
+                      <PatientPage isUserLoggedIn={ this.state.isUserLoggedIn }/>
                       )}
                     />
                 </BrowserRouter>
