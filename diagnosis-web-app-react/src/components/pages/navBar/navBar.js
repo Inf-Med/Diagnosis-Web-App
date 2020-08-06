@@ -20,13 +20,16 @@ class Navbar extends React.Component {
             else {
                 this.props.editAlertMessageState(true, "Logout successfull.", "successMessage");
                 this.props.changeUserState();
+                this.props.resetStatus();
             }
         })
         .then(localStorage.clear())
         .then(sessionStorage.clear())
         .catch( error => console.error(error))
     }
-
+    statusChange =() => {
+        this.props.resetStatus();
+    }
     showMenubar = () => {
         let isChecked = document.getElementById("check").checked;
         if (isChecked === true) {
@@ -45,7 +48,7 @@ class Navbar extends React.Component {
                 suitedNavbarElements =
                     <ul id="menu">
                         <li><NavLink to="/" className="menuString">Home</NavLink></li>
-                        <li><NavLink to="/quest" className="menuString">Interview</NavLink></li>
+                        <li><NavLink to="/quest" className="menuString" onClick={ this.statusChange }>Interview</NavLink></li>
                         <li><NavLink to="/login" className="menuString" onClick={ this.logout }>Logout</NavLink></li>
                         <li><p className="navbar-text">Logged in as:  { this.props.username }</p></li>
                     </ul>

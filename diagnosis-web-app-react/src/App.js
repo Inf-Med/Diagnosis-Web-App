@@ -60,13 +60,20 @@ class App extends React.Component {
     this.setState({isUserLoggedIn: isLoggedIn});
   }
   submitData = () => {
-    var doSubmit = !this.state.isSubmit;
+    var doSubmit = true;
     this.setState({isSubmit: doSubmit});
   }
   endInterview = () => {
-    var endStatus = !this.state.isEnd;
+    var endStatus = true;
     this.setState({isEnd: endStatus});
   }
+  resetStatus = () =>{
+    var endStatus = false;
+    var doSubmit = false;
+    this.setState({
+      isEnd: endStatus,
+      isSubmit: doSubmit});
+  } 
   setLoginSessionTokenAndUsername = (token, username, userId) => {
     this.setState({token, username, userId});
   }
@@ -100,6 +107,7 @@ class App extends React.Component {
                       isUserLoggedIn={ this.state.isUserLoggedIn }
                       changeUserState={ this.changeIsUserLoggedInState }
                       editAlertMessageState={ this.editAlertMessageState }
+                      resetStatus={this.resetStatus} 
                     />
                     { alertMessage }
                     <Route path="/login" render={ () => (
