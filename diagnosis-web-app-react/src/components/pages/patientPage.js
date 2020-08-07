@@ -37,8 +37,8 @@ class PatientPage extends React.Component {
                         <h2>No patients found at the moment</h2>
                     </div>
                 )}
-                <div className="container">
-                    <div className="row">
+                <div id="content" className="container">
+                    <div id="wrapper" className="row">
                         <table className="table table-bordered">
                             <thead className="thead-light">
                                 <tr>
@@ -48,7 +48,7 @@ class PatientPage extends React.Component {
                                     <th scope="col">Date of birth</th>
                                     <th scope="col">Age</th>
                                     <th scope="col">Sex</th>
-                                    <th scope="col">Actions</th>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -60,13 +60,7 @@ class PatientPage extends React.Component {
                                         <td>{patient.date_of_birth}</td>
                                         <td>{patient.age}</td>
                                         <td>{patient.sex}</td>
-                                        <td>
-                                            <div className="d-flex justify-content-between align-items-center">
-                                                <div className="btn-group" style={{ marginBottom: "20px" }}>
-                                                    <Link to={`p/${patient.id}`} className="btn btn-sm btn-outline-secondary">Show more</Link>
-                                                </div>
-                                            </div>
-                                        </td>
+
                                     </tr>
                                 )}
                             </tbody>

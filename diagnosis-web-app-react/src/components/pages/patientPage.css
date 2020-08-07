@@ -13,9 +13,12 @@ nav ul li a:hover {
   color: white;
   text-decoration: none;
 }
+
 table {
-  margin-top: 50px;
-  margin-left: 100px;
+  align: center;
+  border-spacing: 75px 0;
 }
 
-
+td {
+  padding: 10px 0;
+}

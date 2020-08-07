@@ -73,7 +73,7 @@ class InterviewForm extends React.Component {
     return (
       <form id="interview" className="form-style-5">
           <div>
-            <h2>Are you pregnant:</h2>
+            <h2>Are you pregnant?</h2>
             <br />
             <ul>
               <li>
