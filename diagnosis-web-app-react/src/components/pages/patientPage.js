@@ -1,6 +1,7 @@
 import React from 'react';
 import './patientPage.css';
 import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 
 class PatientPage extends React.Component {
@@ -25,7 +26,11 @@ class PatientPage extends React.Component {
         if (this.props.isUserLoggedIn === true){
             const patients = this.state.patients;
         }
+
+        let isUserloggedIn = this.props.isUserLoggedIn;
+
         return (
+            isUserloggedIn ? (
             <div>
                 {this.state.patients.length === 0 && (
                     <div className="text-center">
@@ -69,6 +74,9 @@ class PatientPage extends React.Component {
                     </div>
                 </div>
             </div>
+            ) : (
+                    <Redirect to="/"></Redirect>
+                )
         )
     }
     

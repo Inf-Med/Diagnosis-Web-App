@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import './questionnaire.css'
 import Select from 'react-select';
 import { buildCorrectOptionsForSelectorFromApi } from '../../projectUtilities';

@@ -50,6 +50,7 @@ class Navbar extends React.Component {
                         <li><NavLink to="/" className="menuString">Home</NavLink></li>
                         <li><NavLink to="/quest" className="menuString" onClick={ this.statusChange }>Interview</NavLink></li>
                         <li><NavLink to="/login" className="menuString" onClick={ this.logout }>Logout</NavLink></li>
+                        <li><NavLink to="/patient-register" className="menuString">Patients</NavLink></li>
                         <li><p className="navbar-text">Logged in as:  { this.props.username }</p></li>
                     </ul>
             else

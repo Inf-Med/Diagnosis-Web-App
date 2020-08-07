@@ -155,12 +155,8 @@ class App extends React.Component {
                       <DiagnosisPage isUserLoggedIn={ this.state.isUserLoggedIn } diagnosisData={ this.state.diagnosisData }/>
                       )}
                     />
-                    <Route exact path="/register" render={ () => (
-                      <DiagnosisPage isUserLoggedIn={ this.state.isUserLoggedIn } patients={ this.state.patients }/>
-                      )}
-                    />
                     <Route exact path="/patient-register" render={ () => (
-                      <PatientPage isUserLoggedIn={ this.state.isUserLoggedIn }/>
+                      <PatientPage isUserLoggedIn={ this.state.isUserLoggedIn } patients={ this.state.patients }/>
                       )}
                     />
                 </BrowserRouter>
